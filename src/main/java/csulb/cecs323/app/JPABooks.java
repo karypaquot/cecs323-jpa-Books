@@ -13,7 +13,7 @@
 package csulb.cecs323.app;
 
 // Import all of the entity classes that we have written for this application.
-import csulb.cecs323.model.*;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  *     Originally provided by Dr. Alvaro Monge of CSULB, and subsequently modified by Dave Brown.
  * </p>
  */
-public class CarClub {
+public class JPABooks {
    /**
     * You will likely need the entityManager in a great many functions throughout your application.
     * Rather than make this a global variable, we will make it an instance variable within the CarClub
@@ -47,23 +47,23 @@ public class CarClub {
     * Here also, we want to make sure that the one Logger instance is readily available throughout the
     * application, without resorting to creating a global variable.
     */
-   private static final Logger LOGGER = Logger.getLogger(CarClub.class.getName());
+   private static final Logger LOGGER = Logger.getLogger(JPABooks.class.getName());
 
    /**
     * The constructor for the CarClub class.  All that it does is stash the provided EntityManager
     * for use later in the application.
     * @param manager    The EntityManager that we will use.
     */
-   public CarClub(EntityManager manager) {
+   public JPABooks(EntityManager manager) {
       this.entityManager = manager;
    }
 
    public static void main(String[] args) {
       LOGGER.fine("Creating EntityManagerFactory and EntityManager");
-      EntityManagerFactory factory = Persistence.createEntityManagerFactory("CarClub");
+      EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPABooks");
       EntityManager manager = factory.createEntityManager();
       // Create an instance of CarClub and store our new EntityManager as an instance variable.
-      CarClub carclub = new CarClub(manager);
+      JPABooks carclub = new JPABooks(manager);
 
 
       // Any changes to the database need to be done within a transaction.
@@ -73,17 +73,29 @@ public class CarClub {
       EntityTransaction tx = manager.getTransaction();
 
       tx.begin();
-      // List of owners that I want to persist.  I could just as easily done this with the seed-data.sql
+      /*// List of owners that I want to persist.  I could just as easily done this with the seed-data.sql
       List <Owners> owners = new ArrayList<Owners>();
       // Load up my List with the Entities that I want to persist.  Note, this does not put them
       // into the database.
       owners.add(new Owners("Reese", "Mike", "714-892-5544"));
       owners.add(new Owners("Leck", "Carl", "714-321-3729"));
       owners.add(new Owners("Guitierez", "Luis", "562-982-2899"));
+      owners.add(new Owners("Hernandez", "Karina", "562-739-8942"));
+      owners.add(new Owners("Hernandez", "Dante", "562-290-7952"));
+      owners.add(new Owners("Torres", "Scott", "562-439-8942"));
       // Create the list of owners in the database.
       carclub.createEntity (owners);
-
+      List <Cars> cars = new ArrayList<>();
+      cars.add(new Cars(owners.get(2), carclub.getStyle("sport-utility vehicle"), "65836449243", "Volkswagon", "Tiguan", 2018 ));
+      cars.add(new Cars(owners.get(3), carclub.getStyle("hatchback"), "64857298659", "Ford", "Focus", 2020));
+      cars.add(new Cars(owners.get(4), carclub.getStyle("sedan"), "65781234986", "Toyota", "Corolla", 2007));
+      cars.add(new Cars(owners.get(3), carclub.getStyle("convertible"), "68574295875", "Ford", "Mustang", 2000));
+      cars.add(new Cars(owners.get(5), carclub.getStyle("sports car"), "68597215486", "Porsche", "911", 2022));
+      cars.add(new Cars(owners.get(4), carclub.getStyle("minivan"), "36758429124", "Honda", "Odyssey", 2015));
+      carclub.createEntity (cars);
       // Commit the changes so that the new data persists and is visible to other users.
+      */
+
       tx.commit();
       LOGGER.fine("End of Transaction");
 
@@ -118,6 +130,7 @@ public class CarClub {
     * @param name       The name of the autobody style that you are looking for.
     * @return           The auto_body_styles instance corresponding to that style name.
     */
+   /*
    public auto_body_styles getStyle (String name) {
       // Run the native query that we defined in the auto_body_styles entity to find the right style.
       List<auto_body_styles> styles = this.entityManager.createNamedQuery("ReturnAutoBodyStyle",
@@ -130,4 +143,6 @@ public class CarClub {
          return styles.get(0);
       }
    }// End of the getStyle method
+
+    */
 } // End of CarClub class
