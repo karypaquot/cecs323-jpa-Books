@@ -115,6 +115,12 @@ public class JPABooks {
       publishers.add(new Publisher(n, p, e));
       System.out.println(publishers);
       JPABooks.createEntity(publishers);
+      Publisher pub = manager.find(Publisher.class, 0);
+      manager.getTransaction().begin();
+      manager.remove(pub);
+      manager.getTransaction().commit();
+
+
 
       tx.commit();
       LOGGER.fine("End of Transaction");
