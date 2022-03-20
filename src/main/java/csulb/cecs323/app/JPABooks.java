@@ -115,7 +115,7 @@ public class JPABooks {
       publishers.add(new Publisher(n, p, e));
       System.out.println(publishers);
       JPABooks.createEntity(publishers);
-      Publisher pub = manager.find(Publisher.class, 0);
+      Publisher pub = manager.find(Publisher.class, publishers.get(0).get_publisherID());
       manager.getTransaction().begin();
       manager.remove(pub);
       manager.getTransaction().commit();
