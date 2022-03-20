@@ -16,6 +16,8 @@ package csulb.cecs323.app;
 
 
 //import csulb.cecs323.model.Books;
+import java.util.logging.Level;
+
 import csulb.cecs323.model.Publisher;
 import java.util.*;
 import javax.persistence.EntityManager;
@@ -115,15 +117,17 @@ public class JPABooks {
       publishers.add(new Publisher(n, p, e));
       System.out.println(publishers);
       JPABooks.createEntity(publishers);
+
+      tx.commit();
       Publisher pub = manager.find(Publisher.class, publishers.get(0).get_publisherID());
       manager.getTransaction().begin();
       manager.remove(pub);
       manager.getTransaction().commit();
 
-
-
-      tx.commit();
+      //LOGGER.setLevel(Level.OFF);
       LOGGER.fine("End of Transaction");
+
+
 
    } // End of the main method
 
