@@ -3,6 +3,7 @@ package csulb.cecs323.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name="Author")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Authoring_Entity_Type", discriminatorType = DiscriminatorType.STRING, length = 50)
 public abstract class Authoring_Entities {
