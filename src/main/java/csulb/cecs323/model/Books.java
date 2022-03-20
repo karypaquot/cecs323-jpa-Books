@@ -5,11 +5,11 @@ import javax.persistence.*;
 public class Books {
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "name")
+    @JoinColumn(name = "name", referencedColumnName = "name", nullable = false)
     private Publishers Publishers;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "email")
+    @JoinColumn(name = "email", referencedColumnName = "email", nullable = false)
     private Authoring_Entities Authoring_Entities;
 
 

@@ -1,18 +1,17 @@
 package csulb.cecs323.model;
-//name: String
-//phone: String
-//email: String
+
 import javax.persistence.*;
 @Entity
 public class Publishers {
+
     @Id
     @Column(nullable = false, length = 80)
     private String name;
 
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false, length = 24)
     private String phone;
 
-    @Column (nullable = false, length = 24)
+    @Column (nullable = false, length = 80)
     private String email;
 
 

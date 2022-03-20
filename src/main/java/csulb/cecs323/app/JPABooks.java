@@ -92,14 +92,17 @@ public class JPABooks {
       publishers.add(new Publisher(n, p, e));
       System.out.println(publishers);*/
 
+      //add a publisher to the publishers list
       publishers.add(new Publishers("Julia", "1234567890", "navarro.jvn@gmail.com"));
       JPABooks.createEntity(publishers);
 
+      //create authoring entities list
       List<Authoring_Entities> authors = new ArrayList<Authoring_Entities>();
       authors.add(new Authoring_Entities("audreysimp@gmail.com", "Audrey"));
       System.out.println(authors);
       JPABooks.createEntity(authors);
 
+      //create books list that will take in authors and publishers
       List <Books> books = new ArrayList<Books>();
       books.add(new Books("abc123", "Julia's Story", 1995, authors.get(0), publishers.get(0)));
       System.out.println(books);
