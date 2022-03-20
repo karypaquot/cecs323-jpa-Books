@@ -17,15 +17,15 @@ package csulb.cecs323.app;
 
 import csulb.cecs323.model.Books;
 import csulb.cecs323.model.Publisher;
-
+import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 import java.util.logging.Logger;
-import java.util.*;
+
 
 /**
  * A simple application to demonstrate how to persist an object in JPA.
@@ -67,7 +67,7 @@ public class JPABooks {
       EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPABooks");
       EntityManager manager = factory.createEntityManager();
       // Create an instance of CarClub and store our new EntityManager as an instance variable.
-      JPABooks JPABooks= new JPABooks(manager);
+      JPABooks JPABooks = new JPABooks(manager);
 
 
       // Any changes to the database need to be done within a transaction.
@@ -102,7 +102,7 @@ public class JPABooks {
       */
 
       //create books list
-      List <Books> books = new ArrayList<Books>();
+      //List <Books> books = new ArrayList<Books>();
       //books.add("abc123", "Julia's Story", 1995, );
       //create publisher list and prompt user to enter information
       List <Publisher> publishers = new ArrayList<Publisher>();

@@ -19,7 +19,7 @@ public class Books {
 //    private String publisher_name;
 
     /*@ManyToOne
-    @JoinColumn(name = "authoring_entity_name", referencedColumnName = "name", nullable = false)
+    @JoinColumn(name = "email", referencedColumnName = "email", nullable = false)
     private Authoring_Entities Authoring_Entities;
     */
     @ManyToOne
