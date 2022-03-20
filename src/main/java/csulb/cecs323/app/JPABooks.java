@@ -118,6 +118,7 @@ public class JPABooks {
       System.out.println(publishers);
       JPABooks.createEntity(publishers);
 
+
       tx.commit();
       /*Publisher pub = manager.find(Publisher.class, publishers.get(0).get_publisherID());
       manager.getTransaction().begin();
