@@ -4,7 +4,7 @@ package csulb.cecs323.model;
 //email: String
 import javax.persistence.*;
 @Entity
-public class Publisher {
+public class Publishers {
     @Id
     @Column(nullable = false, length = 80)
     private String name;
@@ -15,16 +15,13 @@ public class Publisher {
     @Column (nullable = false, length = 24)
     private String email;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(nullable = false)
-//    private Books books;
 
-    public Publisher (String name, String phone, String email){
+    public Publishers (String name, String phone, String email){
         this.name = name;
         this.phone = phone;
         this.email = email;
     }
-    public Publisher(){}
+    public Publishers(){}
 
 
     public String getName() {

@@ -3,6 +3,16 @@ import javax.persistence.*;
 
 @Entity
 public class Books {
+
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "name")
+    private Publishers Publishers;
+
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "email")
+    private Authoring_Entities Authoring_Entities;
+
+
     @Id
     @Column(nullable = false, length = 17)
     private String ISBN;
@@ -13,30 +23,28 @@ public class Books {
     @Column (nullable = false)
     private int year_published;
 
-    /*@ManyToOne
-    @JoinColumn(name = "email", referencedColumnName = "email", nullable = false)
-    private Authoring_Entities Authoring_Entities;
-     */
 
-    @ManyToOne
-    @JoinColumn (name = "publisher_name", referencedColumnName = "name", nullable = false)
-    private Publisher Publisher;
 
-    public Books(String ISBN, String title, int year_published, Publisher publisher){
+
+
+    public Books(String ISBN, String title, int year_published,Authoring_Entities authoring_Entities, Publishers publisher){
         this.ISBN = ISBN;
         this.title = title;
         this.year_published = year_published;
-        //this.Authoring_Entities = authoring_Entities;
-        this.Publisher = publisher;
+        this.Authoring_Entities = authoring_Entities;
+        this.Publishers = publisher;
 
     }
     public Books(){
 
     }
+
+
+
     @Override
     public String toString () {
         return "Books - ISBN: " + this.ISBN + " Title: " + this.title +
-                " Year Published: " + this.year_published + " Publisher: " + this.Publisher.getName();
+                " Year Published: " + this.year_published + " Publisher: " + this.Publishers.getName();
     }
 
 

@@ -19,7 +19,7 @@ import csulb.cecs323.model.Authoring_Entities;
 import csulb.cecs323.model.Books;
 import java.util.logging.Level;
 
-import csulb.cecs323.model.Publisher;
+import csulb.cecs323.model.Publishers;
 import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -80,53 +80,32 @@ public class JPABooks {
       EntityTransaction tx = manager.getTransaction();
 
       tx.begin();
-      /*// List of owners that I want to persist.  I could just as easily done this with the seed-data.sql
-      List <Owners> owners = new ArrayList<Owners>();
-      // Load up my List with the Entities that I want to persist.  Note, this does not put them
-      // into the database.
 
-      owners.add(new Owners("Reese", "Mike", "714-892-5544"));
-      owners.add(new Owners("Leck", "Carl", "714-321-3729"));
-      owners.add(new Owners("Guitierez", "Luis", "562-982-2899"));
-      owners.add(new Owners("Hernandez", "Karina", "562-739-8942"));
-      owners.add(new Owners("Hernandez", "Dante", "562-290-7952"));
-      owners.add(new Owners("Torres", "Scott", "562-439-8942"));
-      // Create the list of owners in the database.
-      carclub.createEntity (owners);
-      List <Cars> cars = new ArrayList<>();
-      cars.add(new Cars(owners.get(2), carclub.getStyle("sport-utility vehicle"), "65836449243", "Volkswagon", "Tiguan", 2018 ));
-      cars.add(new Cars(owners.get(3), carclub.getStyle("hatchback"), "64857298659", "Ford", "Focus", 2020));
-      cars.add(new Cars(owners.get(4), carclub.getStyle("sedan"), "65781234986", "Toyota", "Corolla", 2007));
-      cars.add(new Cars(owners.get(3), carclub.getStyle("convertible"), "68574295875", "Ford", "Mustang", 2000));
-      cars.add(new Cars(owners.get(5), carclub.getStyle("sports car"), "68597215486", "Porsche", "911", 2022));
-      cars.add(new Cars(owners.get(4), carclub.getStyle("minivan"), "36758429124", "Honda", "Odyssey", 2015));
-      carclub.createEntity (cars);
-      // Commit the changes so that the new data persists and is visible to other users.
-      */
-
-      //create books list
       //create publisher list and prompt user to enter information
-      List <Publisher> publishers = new ArrayList<Publisher>();
-      System.out.println("\n\nEnter the Publisher's name: ");
+      List <Publishers> publishers = new ArrayList<Publishers>();
+      /*System.out.println("\n\nEnter the Publisher's name: ");
       String n = getString();
       System.out.println("\n\nEnter the Publisher's Phone number: ");
       String p = getString();
       System.out.println("\n\nEnter the Publisher's email: ");
       String e = getString();
       publishers.add(new Publisher(n, p, e));
-      System.out.println(publishers);
+      System.out.println(publishers);*/
+
+      publishers.add(new Publishers("Julia", "1234567890", "navarro.jvn@gmail.com"));
       JPABooks.createEntity(publishers);
-
-
-      List <Books> books = new ArrayList<Books>();
-      books.add(new Books("abc123", "Julia's Story", 1995, publishers.get(0)));
-      System.out.println(books);
-      JPABooks.createEntity(books);
 
       List<Authoring_Entities> authors = new ArrayList<Authoring_Entities>();
       authors.add(new Authoring_Entities("audreysimp@gmail.com", "Audrey"));
       System.out.println(authors);
       JPABooks.createEntity(authors);
+
+      List <Books> books = new ArrayList<Books>();
+      books.add(new Books("abc123", "Julia's Story", 1995, authors.get(0), publishers.get(0)));
+      System.out.println(books);
+      JPABooks.createEntity(books);
+
+
 
       tx.commit();
       /*Publisher pub = manager.find(Publisher.class, publishers.get(0).get_publisherID());

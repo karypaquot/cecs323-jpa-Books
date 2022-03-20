@@ -3,8 +3,9 @@ package csulb.cecs323.model;
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "Authoring_Entity_Type", discriminatorType = DiscriminatorType.STRING, length = 50)
+//@Table(name = "AUTHYORING_ENTITIES")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "email", discriminatorType = DiscriminatorType.STRING, length = 30)
 public class Authoring_Entities {
     @Id
     @Column(nullable = false, length = 30)
