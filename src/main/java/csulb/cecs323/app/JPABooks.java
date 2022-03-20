@@ -15,7 +15,7 @@ package csulb.cecs323.app;
 // Import all of the entity classes that we have written for this application.
 
 
-import csulb.cecs323.model.Books;
+//import csulb.cecs323.model.Books;
 import csulb.cecs323.model.Publisher;
 import java.util.*;
 import javax.persistence.EntityManager;
@@ -106,11 +106,15 @@ public class JPABooks {
       //books.add("abc123", "Julia's Story", 1995, );
       //create publisher list and prompt user to enter information
       List <Publisher> publishers = new ArrayList<Publisher>();
+      System.out.println("\n\nEnter the Publisher's name: ");
       String n = getString();
+      System.out.println("\n\nEnter the Publisher's Phone number: ");
       String p = getString();
+      System.out.println("\n\nEnter the Publisher's email: ");
       String e = getString();
       publishers.add(new Publisher(n, p, e));
-
+      System.out.println(publishers);
+      JPABooks.createEntity(publishers);
 
       tx.commit();
       LOGGER.fine("End of Transaction");

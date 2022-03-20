@@ -61,8 +61,8 @@ public class Publisher {
     }
     @Override
     public String toString () {
-        return "Publisher - ID: " + this.get_publisherID() + " Name: " + this.getName() +
-                " Phone #: " + this.getPhone() + "Email " + this.getEmail();
+        return "(Publisher - ID: " + this.get_publisherID() + ", Name: " + this.getName() +
+                ", Phone #: " + this.getPhone() + ", Email: " + this.getEmail() + ")";
     }
 
 
