@@ -65,7 +65,7 @@ public class JPABooks {
       // Create an instance of CarClub and store our new EntityManager as an instance variable.
       JPABooks carclub = new JPABooks(manager);
 
-
+      HELLO KARINA!!!
       // Any changes to the database need to be done within a transaction.
       // See: https://en.wikibooks.org/wiki/Java_Persistence/Transactions
 
