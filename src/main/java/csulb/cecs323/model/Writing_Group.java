@@ -10,10 +10,14 @@ public class Writing_Group extends Authoring_Entities{
     @Column(nullable = false)
     private int year_formed;
 
-    public Writing_Group(){}
 
-    public Writing_Group(String head_writer, int year_formed){
+    public Writing_Group(String email, String name, String head_writer, int year_formed){
+        super(email, name);
         this.head_writer = head_writer;
         this.year_formed = year_formed;
+    }
+
+    public Writing_Group(){
+        super();
     }
 }
