@@ -18,10 +18,10 @@ public class Books {
 //    @Column (nullable = false, length = 80)
 //    private String publisher_name;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "authoring_entity_name", referencedColumnName = "name", nullable = false)
     private Authoring_Entities Authoring_Entities;
-
+    */
     @ManyToOne
     @JoinColumn (name = "publisher_name", referencedColumnName = "name", nullable = false)
     private Publisher Publisher;
