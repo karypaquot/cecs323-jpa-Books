@@ -1,7 +1,6 @@
 package csulb.cecs323.model;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("IA")
