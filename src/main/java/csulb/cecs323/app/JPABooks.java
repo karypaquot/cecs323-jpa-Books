@@ -135,7 +135,7 @@ public class JPABooks {
       manager.getTransaction().commit();
        */
 
-      //LOGGER.setLevel(Level.OFF);
+      LOGGER.setLevel(Level.OFF);
       LOGGER.fine("End of Transaction");
 
 

@@ -13,10 +13,10 @@ public class Books {
     @Column (nullable = false)
     private int year_published;
 
-    /*@ManyToOne
-    @JoinColumn(name = "name", referencedColumnName = "email", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "email", referencedColumnName = "email", nullable = false)
     private Authoring_Entities Authoring_Entities;
-    */
+
     @ManyToOne
     @JoinColumn (name = "publisher_name", referencedColumnName = "name", nullable = false)
     private Publisher Publisher;
