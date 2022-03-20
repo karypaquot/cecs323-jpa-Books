@@ -119,10 +119,11 @@ public class JPABooks {
       JPABooks.createEntity(publishers);
 
       tx.commit();
-      Publisher pub = manager.find(Publisher.class, publishers.get(0).get_publisherID());
+      /*Publisher pub = manager.find(Publisher.class, publishers.get(0).get_publisherID());
       manager.getTransaction().begin();
       manager.remove(pub);
       manager.getTransaction().commit();
+       */
 
       //LOGGER.setLevel(Level.OFF);
       LOGGER.fine("End of Transaction");
