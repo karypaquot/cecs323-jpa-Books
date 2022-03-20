@@ -1,5 +1,6 @@
 package csulb.cecs323.model;
 import javax.persistence.*;
+
 @Entity
 public class Books {
     @Id
@@ -12,14 +13,8 @@ public class Books {
     @Column (nullable = false)
     private int year_published;
 
-    @Column (nullable = false, length = 30)
-    private String authoring_entity_name;
-
-    @Column (nullable = false, length = 80)
-    private String publisher_name;
-
     @ManyToOne
-    @JoinColumn(name = "email", referencedColumnName = "email", nullable = false)
+    @JoinColumn(name = "name", referencedColumnName = "email", nullable = false)
     private Authoring_Entities Authoring_Entities;
 
     @ManyToOne
