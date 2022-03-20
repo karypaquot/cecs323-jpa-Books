@@ -6,9 +6,6 @@ import javax.persistence.*;
 @Entity
 public class Publisher {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long ID;
-
     @Column(nullable = false, length = 80)
     private String name;
 
@@ -29,11 +26,6 @@ public class Publisher {
     }
     public Publisher(){}
 
-
-    public long get_publisherID() {
-
-        return ID;
-    }
 
     public String getName() {
 
@@ -61,7 +53,7 @@ public class Publisher {
     }
     @Override
     public String toString () {
-        return "(Publisher - ID: " + this.get_publisherID() + ", Name: " + this.getName() +
+        return "(Publisher - ID: " + ", Name: " + this.getName() +
                 ", Phone #: " + this.getPhone() + ", Email: " + this.getEmail() + ")";
     }
 
