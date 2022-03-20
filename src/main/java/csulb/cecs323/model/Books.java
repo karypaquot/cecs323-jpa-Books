@@ -12,16 +12,16 @@ public class Books {
     @Column (nullable = false)
     private int year_published;
 
-//    @Column (nullable = false, length = 30)
-//    private String authoring_entity_name;
-//
-//    @Column (nullable = false, length = 80)
-//    private String publisher_name;
+    @Column (nullable = false, length = 30)
+    private String authoring_entity_name;
 
-    /*@ManyToOne
+    @Column (nullable = false, length = 80)
+    private String publisher_name;
+
+    @ManyToOne
     @JoinColumn(name = "email", referencedColumnName = "email", nullable = false)
     private Authoring_Entities Authoring_Entities;
-    */
+
     @ManyToOne
     @JoinColumn (name = "publisher_name", referencedColumnName = "name", nullable = false)
     private Publisher Publisher;
