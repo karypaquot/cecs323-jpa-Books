@@ -15,6 +15,9 @@ package csulb.cecs323.app;
 // Import all of the entity classes that we have written for this application.
 
 
+import csulb.cecs323.model.Books;
+import csulb.cecs323.model.Publisher;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -22,6 +25,7 @@ import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.*;
 
 /**
  * A simple application to demonstrate how to persist an object in JPA.
@@ -63,9 +67,9 @@ public class JPABooks {
       EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPABooks");
       EntityManager manager = factory.createEntityManager();
       // Create an instance of CarClub and store our new EntityManager as an instance variable.
-      JPABooks carclub = new JPABooks(manager);
+      JPABooks JPABooks= new JPABooks(manager);
 
-      //HELLO KARINA!!!
+
       // Any changes to the database need to be done within a transaction.
       // See: https://en.wikibooks.org/wiki/Java_Persistence/Transactions
 
@@ -77,6 +81,7 @@ public class JPABooks {
       List <Owners> owners = new ArrayList<Owners>();
       // Load up my List with the Entities that I want to persist.  Note, this does not put them
       // into the database.
+
       owners.add(new Owners("Reese", "Mike", "714-892-5544"));
       owners.add(new Owners("Leck", "Carl", "714-321-3729"));
       owners.add(new Owners("Guitierez", "Luis", "562-982-2899"));
@@ -95,6 +100,17 @@ public class JPABooks {
       carclub.createEntity (cars);
       // Commit the changes so that the new data persists and is visible to other users.
       */
+
+      //create books list
+      List <Books> books = new ArrayList<Books>();
+      //books.add("abc123", "Julia's Story", 1995, );
+      //create publisher list and prompt user to enter information
+      List <Publisher> publishers = new ArrayList<Publisher>();
+      String n = getString();
+      String p = getString();
+      String e = getString();
+      publishers.add(new Publisher(n, p, e));
+
 
       tx.commit();
       LOGGER.fine("End of Transaction");
@@ -123,26 +139,13 @@ public class JPABooks {
    } // End of createEntity member method
 
    /**
-    * Think of this as a simple map from a String to an instance of auto_body_styles that has the
-    * same name, as the string that you pass in.  To create a new Cars instance, you need to pass
-    * in an instance of auto_body_styles to satisfy the foreign key constraint, not just a string
-    * representing the name of the style.
-    * @param name       The name of the autobody style that you are looking for.
-    * @return           The auto_body_styles instance corresponding to that style name.
+    * Method utilizes scanner to take in user input, stores the line
+    * Then returns a String when method is called
+    * @return input String value from scanner
     */
-   /*
-   public auto_body_styles getStyle (String name) {
-      // Run the native query that we defined in the auto_body_styles entity to find the right style.
-      List<auto_body_styles> styles = this.entityManager.createNamedQuery("ReturnAutoBodyStyle",
-              auto_body_styles.class).setParameter(1, name).getResultList();
-      if (styles.size() == 0) {
-         // Invalid style name passed in.
-         return null;
-      } else {
-         // Return the style object that they asked for.
-         return styles.get(0);
-      }
-   }// End of the getStyle method
-
-    */
+   public static String getString() {
+      Scanner in = new Scanner(System.in);
+      String input = in.nextLine();
+      return input;
+   }
 } // End of CarClub class
