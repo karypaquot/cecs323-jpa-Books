@@ -20,5 +20,4 @@ public class Authoring_Entities {
     @Column(nullable = false)
     private int year_formed;
 
-    @
 }
