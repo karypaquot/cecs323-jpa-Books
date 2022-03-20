@@ -2,7 +2,7 @@ package csulb.cecs323.model;
 
 import javax.persistence.*;
 
-@MappedSuperclass
+@Inheritance
 public abstract class Authoring_Entities {
     @Id
     @Column(nullable = false, length = 30)
@@ -16,6 +16,11 @@ public abstract class Authoring_Entities {
         this.email = email;
         this.name = name;
     }
-    
+    public Authoring_Entities() {}
+
+    @Override
+    public String toString () {
+        return "Authoring name:  " + name + " Email: " + email;
+    }
 
 }
