@@ -15,7 +15,7 @@ package csulb.cecs323.app;
 // Import all of the entity classes that we have written for this application.
 
 
-//import csulb.cecs323.model.Books;
+import csulb.cecs323.model.Books;
 import java.util.logging.Level;
 
 import csulb.cecs323.model.Publisher;
@@ -104,8 +104,6 @@ public class JPABooks {
       */
 
       //create books list
-      //List <Books> books = new ArrayList<Books>();
-      //books.add("abc123", "Julia's Story", 1995, );
       //create publisher list and prompt user to enter information
       List <Publisher> publishers = new ArrayList<Publisher>();
       System.out.println("\n\nEnter the Publisher's name: ");
@@ -118,6 +116,11 @@ public class JPABooks {
       System.out.println(publishers);
       JPABooks.createEntity(publishers);
 
+
+      List <Books> books = new ArrayList<Books>();
+      books.add(new Books("abc123", "Julia's Story", 1995, publishers.get(0)));
+      System.out.println(books);
+      JPABooks.createEntity(books);
 
       tx.commit();
       /*Publisher pub = manager.find(Publisher.class, publishers.get(0).get_publisherID());
