@@ -2,6 +2,7 @@ package csulb.cecs323.model;
 import javax.persistence.*;
 
 @Entity
+@DiscriminatorValue("WG")
 public class Writing_Group extends Authoring_Entities{
     @Id
     @Column (nullable = false, length = 80)
