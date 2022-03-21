@@ -20,6 +20,8 @@ import csulb.cecs323.model.Books;
 import java.util.logging.Level;
 
 import csulb.cecs323.model.Publishers;
+import csulb.cecs323.model.Writing_Group;
+
 import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -94,18 +96,27 @@ public class JPABooks {
 
       //add a publisher to the publishers list
       publishers.add(new Publishers("Julia", "1234567890", "navarro.jvn@gmail.com"));
+      for(int i = 0; i < publishers.size(); i++){
+         System.out.println((publishers.get(i)));
+      }
       JPABooks.createEntity(publishers);
 
       //create authoring entities list
-      List<Authoring_Entities> authors = new ArrayList<Authoring_Entities>();
-      authors.add(new Authoring_Entities("audreysimp@gmail.com", "Audrey"));
-      System.out.println(authors);
+      List<Writing_Group> authors = new ArrayList<Writing_Group>();
+      authors.add(new Writing_Group("audreysimp@gmail.com", "Audrey's Group", "Audrey", 1998));
+      for(int i = 0; i < authors.size(); i++){
+         System.out.println((authors.get(i)));
+      }
+      //System.out.println(authors);
       JPABooks.createEntity(authors);
 
       //create books list that will take in authors and publishers
       List <Books> books = new ArrayList<Books>();
       books.add(new Books("abc123", "Julia's Story", 1995, authors.get(0), publishers.get(0)));
-      System.out.println(books);
+      for(int i = 0; i < books.size(); i++){
+         System.out.println((books.get(i)));
+      }
+      //System.out.println(books);
       JPABooks.createEntity(books);
 
 

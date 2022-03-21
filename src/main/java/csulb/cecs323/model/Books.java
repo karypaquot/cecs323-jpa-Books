@@ -43,8 +43,8 @@ public class Books {
 
     @Override
     public String toString () {
-        return "Books - ISBN: " + this.ISBN + " Title: " + this.title +
-                " Year Published: " + this.year_published + " Publisher: " + this.Publishers.getName();
+        return "\nBooks - ISBN: " + this.ISBN + "\nTitle: " + this.title +
+                "\nYear Published: " + this.year_published + "\nPublisher: " + this.Publishers.getName();
     }
 
 
