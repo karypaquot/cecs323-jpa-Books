@@ -15,12 +15,9 @@ package csulb.cecs323.app;
 // Import all of the entity classes that we have written for this application.
 
 
-import csulb.cecs323.model.Authoring_Entities;
-import csulb.cecs323.model.Books;
-import java.util.logging.Level;
+import csulb.cecs323.model.*;
 
-import csulb.cecs323.model.Publishers;
-import csulb.cecs323.model.Writing_Group;
+import java.util.logging.Level;
 
 import java.util.*;
 import javax.persistence.EntityManager;
@@ -110,6 +107,15 @@ public class JPABooks {
       }
       //System.out.println(authors);
       JPABooks.createEntity(authors);
+
+      //create Ad Hoc Team
+      List<Ad_Hoc_Team> team = new ArrayList<Ad_Hoc_Team>();
+      team.add(new Ad_Hoc_Team("team@gmail.com", "My team"));
+      for(int j = 0; j < team.size(); j++){
+         System.out.println((team.get(j)));
+      }
+
+      JPABooks.createEntity(team);
 
       //create books list that will take in authors and publishers
       List <Books> books = new ArrayList<Books>();
