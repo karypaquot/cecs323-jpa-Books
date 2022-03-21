@@ -175,6 +175,22 @@ public class JPABooks {
       return input;
    }
 
+   public static int getInt () {
+      Scanner in = new Scanner(System.in);
+      int answer = 0;
+      boolean valid = false;
+      while (!valid) {
+         if (in.hasNextInt()) {
+            answer = in.nextInt();
+            valid = true;
+         } else {
+            in.next(); //clear invalid string
+            System.out.println("Invalid Input.");
+         }
+      }
+      return answer;
+   }
+
    public static void createPublishers(List<Publishers> list){
       System.out.println("Enter the publisher's name: ");
       String publishers_name = getString();
@@ -184,6 +200,19 @@ public class JPABooks {
       String publishers_email = getString();
 
       list.add(new Publishers(publishers_name,publishers_number,publishers_email));
+   }
+
+
+   public static void createBook(List<Books> b, Authoring_Entities ae, Publishers p)
+   {
+      System.out.println("You are creating a new book. Please enter the ISBN: ");
+      String isbn = getString();
+      System.out.println("\nEnter the title: ");
+      String title = getString();
+      System.out.println("\nEnter the year published: ");
+      int year = getInt();
+
+      b.add(new Books(isbn, title, year, ae, p));
    }
 
 
