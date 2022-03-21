@@ -83,6 +83,7 @@ public class JPABooks {
 
       //create publisher list and prompt user to enter information
       List <Publishers> publishers = new ArrayList<Publishers>();
+      createPublishers(publishers);
       /*System.out.println("\n\nEnter the Publisher's name: ");
       String n = getString();
       System.out.println("\n\nEnter the Publisher's Phone number: ");
@@ -173,6 +174,19 @@ public class JPABooks {
       String input = in.nextLine();
       return input;
    }
+
+   public static void createPublishers(List<Publishers> list){
+      System.out.println("Enter the publisher's name: ");
+      String publishers_name = getString();
+      System.out.println("Enter the publisher's number: ");
+      String publishers_number = getString();
+      System.out.println("Enter the publisher's email: ");
+      String publishers_email = getString();
+
+      list.add(new Publishers(publishers_name,publishers_number,publishers_email));
+   }
+
+
 
 
 } // End of CarClub class
