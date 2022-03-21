@@ -1,7 +1,16 @@
 package csulb.cecs323.model;
 
 import javax.persistence.*;
+import javax.persistence.NamedNativeQueries;
+
 @Entity
+@NamedNativeQuery(
+        name = "ReturnWritingGroup",
+        query = "SELECT * " +
+                "FROM AUTHORING_ENTITIES " +
+                "WHERE name = ? AND AUTHORING_ENTITY_TYPE = 'Writing Groups'",
+        resultClass = Writing_Group.class
+)
 @DiscriminatorValue("Writing Groups")
 public class Writing_Group extends Authoring_Entities{
 
