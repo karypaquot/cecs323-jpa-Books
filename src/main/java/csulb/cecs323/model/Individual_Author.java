@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@NamedNativeQuery(
+        name = "ReturnIndividualAuthor",
+        query = "SELECT * " +
+                "FROM AUTHORING_ENTITIES " +
+                "WHERE name = ? AND AUTHORING_ENTITY_TYPE = 'Individual_Author'",
+        resultClass = Individual_Author.class
+)
 @DiscriminatorValue("Individual_Author")
 public class Individual_Author extends Authoring_Entities{
 

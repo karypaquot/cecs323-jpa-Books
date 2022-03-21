@@ -4,6 +4,13 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@NamedNativeQuery(
+        name = "ReturnAdHocTeam",
+        query = "SELECT * " +
+                "FROM AUTHORING_ENTITIES " +
+                "WHERE name = ? AND AUTHORING_ENTITY_TYPE = 'Ad Hoc Team'",
+        resultClass = Ad_Hoc_Team.class
+)
 @DiscriminatorValue("Ad Hoc Team")
 public class Ad_Hoc_Team extends Authoring_Entities{
 
