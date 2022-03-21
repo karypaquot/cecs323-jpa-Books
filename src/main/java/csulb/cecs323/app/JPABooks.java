@@ -246,6 +246,29 @@ public class JPABooks {
 
    }
 
+   public static Individual_Author createIndividualAuthor(List<Individual_Author> list){
+      System.out.println("Enter the author's Name: ");
+      String Name = getString();
+      System.out.println("Enter the author's email: ");
+      String Email = getString();
+      Individual_Author author = new Individual_Author(Name,Email);
+      list.add(author);
+      return author;
+   }
+
+   public static Ad_Hoc_Team createAdHocTeam(List<Ad_Hoc_Team> list){
+      System.out.println("Enter the author's Name: ");
+      String Name = getString();
+      System.out.println("Enter the author's email: ");
+      String Email = getString();
+      Ad_Hoc_Team adHoc= new Ad_Hoc_Team(Email,Name);
+      list.add(adHoc);
+      return adHoc;
+   }
+
+
+
+
 
 
 
