@@ -3,8 +3,9 @@ package csulb.cecs323.model;
 import javax.persistence.*;
 
 @Entity
-@MappedSuperclass
-public abstract class Authoring_Entities {
+//@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Authoring_Entities {
 
     @Id
     @Column(nullable = false, length = 30)

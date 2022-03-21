@@ -1,7 +1,7 @@
 package csulb.cecs323.model;
 
 import javax.persistence.*;
-@Entity(name = "Writing_Group")
+@Entity
 public class Writing_Group extends Authoring_Entities{
 
     @Column
