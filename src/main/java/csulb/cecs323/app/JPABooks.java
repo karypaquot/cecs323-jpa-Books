@@ -83,8 +83,9 @@ public class JPABooks {
    //hi
       //create publisher list and prompt user to enter information
       List <Publishers> publishers = new ArrayList<Publishers>();
-      createPublishers(publishers);
+      Publishers publisher = createPublishers(publishers);
       List<Writing_Group> Writing_group = new ArrayList<Writing_Group>();
+      Writing_Group group = createWritingGroup(Writing_group);
       /*System.out.println("\n\nEnter the Publisher's name: ");
       String n = getString();
       System.out.println("\n\nEnter the Publisher's Phone number: ");
@@ -192,15 +193,16 @@ public class JPABooks {
       return answer;
    }
 
-   public static void createPublishers(List<Publishers> list){
+   public static Publishers createPublishers(List<Publishers> list){
       System.out.println("Enter the publisher's name: ");
       String publishers_name = getString();
       System.out.println("Enter the publisher's number: ");
       String publishers_number = getString();
       System.out.println("Enter the publisher's email: ");
       String publishers_email = getString();
-
-      list.add(new Publishers(publishers_name,publishers_number,publishers_email));
+      Publishers new_publisher = new Publishers(publishers_name,publishers_number,publishers_email);
+      list.add(new_publisher);
+      return new_publisher;
    }
 
 
@@ -216,7 +218,7 @@ public class JPABooks {
       b.add(new Books(isbn, title, year, ae, p));
    }
 
-   public static void createWritingGroup(List<Writing_Group> list){
+   public static Writing_Group createWritingGroup(List<Writing_Group> list){
       System.out.println("Enter the Writing Group's Name: ");
       String Name = getString();
       System.out.println("Enter the Writing Group's email: ");
@@ -225,7 +227,9 @@ public class JPABooks {
       String HeadWriter = getString();
       System.out.println("Enter the year the group was formed: ");
       int year = getInt();
-      list.add(new Writing_Group(Email,Name,HeadWriter,year));
+      Writing_Group wr = new Writing_Group(Email,Name,HeadWriter,year);
+      list.add(wr);
+      return wr;
 
    }
 
