@@ -86,6 +86,8 @@ public class JPABooks {
       Publishers publisher = createPublishers(publishers);
       List<Writing_Group> Writing_group = new ArrayList<Writing_Group>();
       Writing_Group group = createWritingGroup(Writing_group);
+      List<Books> books = new ArrayList<Books>();
+      createBook(books, group, publisher);
       /*System.out.println("\n\nEnter the Publisher's name: ");
       String n = getString();
       System.out.println("\n\nEnter the Publisher's Phone number: ");
@@ -103,9 +105,14 @@ public class JPABooks {
       JPABooks.createEntity(publishers);
 
       for(int j = 0; j < Writing_group.size(); j++){
-         System.out.println((publishers.get(j)));
+         System.out.println((Writing_group.get(j)));
       }
       JPABooks.createEntity(Writing_group);
+
+      for(int k = 0; k < Writing_group.size(); k++){
+         System.out.println((books.get(k)));
+      }
+      JPABooks.createEntity(books);
 
 
       //create authoring entities list
