@@ -81,7 +81,7 @@ public class JPABooks {
       EntityTransaction tx = manager.getTransaction();
 
       tx.begin();
-
+   //hi
       //create publisher list and prompt user to enter information
       List <Publishers> publishers = new ArrayList<Publishers>();
       Publishers publisher = createPublishers(publishers);
