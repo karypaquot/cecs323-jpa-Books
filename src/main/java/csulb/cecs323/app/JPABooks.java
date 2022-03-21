@@ -96,38 +96,44 @@ public class JPABooks {
       System.out.println(publishers);*/
 
       //add a publisher to the publishers list
-      publishers.add(new Publishers("Julia", "1234567890", "navarro.jvn@gmail.com"));
+      //publishers.add(new Publishers("Julia", "1234567890", "navarro.jvn@gmail.com"));
       for(int i = 0; i < publishers.size(); i++){
          System.out.println((publishers.get(i)));
       }
       JPABooks.createEntity(publishers);
 
+      for(int j = 0; j < Writing_group.size(); j++){
+         System.out.println((publishers.get(j)));
+      }
+      JPABooks.createEntity(Writing_group);
+
+
       //create authoring entities list
-      List<Writing_Group> authors = new ArrayList<Writing_Group>();
-      authors.add(new Writing_Group("audreysimp@gmail.com", "Audrey's Group", "Audrey", 1998));
-      for(int i = 0; i < authors.size(); i++){
-         System.out.println((authors.get(i)));
-      }
+//      List<Writing_Group> authors = new ArrayList<Writing_Group>();
+//      authors.add(new Writing_Group("audreysimp@gmail.com", "Audrey's Group", "Audrey", 1998));
+//      for(int i = 0; i < authors.size(); i++){
+//         System.out.println((authors.get(i)));
+//      }
       //System.out.println(authors);
-      JPABooks.createEntity(authors);
-
-      //create Ad Hoc Team
-      List<Ad_Hoc_Team> team = new ArrayList<Ad_Hoc_Team>();
-      team.add(new Ad_Hoc_Team("team@gmail.com", "My team"));
-      for(int j = 0; j < team.size(); j++){
-         System.out.println((team.get(j)));
-      }
-
-      JPABooks.createEntity(team);
-
-      //create books list that will take in authors and publishers
-      List <Books> books = new ArrayList<Books>();
-      books.add(new Books("abc123", "Julia's Story", 1995, authors.get(0), publishers.get(0)));
-      for(int i = 0; i < books.size(); i++){
-         System.out.println((books.get(i)));
-      }
-      //System.out.println(books);
-      JPABooks.createEntity(books);
+//      JPABooks.createEntity(authors);
+//
+//      //create Ad Hoc Team
+//      List<Ad_Hoc_Team> team = new ArrayList<Ad_Hoc_Team>();
+//      team.add(new Ad_Hoc_Team("team@gmail.com", "My team"));
+//      for(int j = 0; j < team.size(); j++){
+//         System.out.println((team.get(j)));
+//      }
+//
+//      JPABooks.createEntity(team);
+//
+//      //create books list that will take in authors and publishers
+//      List <Books> books = new ArrayList<Books>();
+//      books.add(new Books("abc123", "Julia's Story", 1995, authors.get(0), publishers.get(0)));
+//      for(int i = 0; i < books.size(); i++){
+//         System.out.println((books.get(i)));
+//      }
+//      //System.out.println(books);
+//      JPABooks.createEntity(books);
 
 
 
