@@ -2,9 +2,10 @@ package csulb.cecs323.model;
 
 import javax.persistence.*;
 @Entity
+@DiscriminatorValue("Writing Groups")
 public class Writing_Group extends Authoring_Entities{
 
-    @Column
+    @Column(length = 80)
     private String headWriter;
 
     @Column

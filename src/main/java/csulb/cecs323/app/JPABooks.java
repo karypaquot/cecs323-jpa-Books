@@ -68,6 +68,7 @@ public class JPABooks {
    }
 
    public static void main(String[] args) {
+      LOGGER.setLevel(Level.OFF);
       LOGGER.fine("Creating EntityManagerFactory and EntityManager");
       EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPABooks");
       EntityManager manager = factory.createEntityManager();
@@ -128,7 +129,7 @@ public class JPABooks {
       manager.getTransaction().commit();
        */
 
-      LOGGER.setLevel(Level.OFF);
+
       LOGGER.fine("End of Transaction");
 
 
