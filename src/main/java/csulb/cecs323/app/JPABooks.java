@@ -84,6 +84,7 @@ public class JPABooks {
       //create publisher list and prompt user to enter information
       List <Publishers> publishers = new ArrayList<Publishers>();
       createPublishers(publishers);
+      List<Writing_Group> Writing_group = new ArrayList<Writing_Group>();
       /*System.out.println("\n\nEnter the Publisher's name: ");
       String n = getString();
       System.out.println("\n\nEnter the Publisher's Phone number: ");
@@ -213,6 +214,19 @@ public class JPABooks {
       int year = getInt();
 
       b.add(new Books(isbn, title, year, ae, p));
+   }
+
+   public static void createWritingGroup(List<Writing_Group> list){
+      System.out.println("Enter the Writing Group's Name: ");
+      String Name = getString();
+      System.out.println("Enter the Writing Group's email: ");
+      String Email = getString();
+      System.out.println("Enter the Writing Group's Head Writer: ");
+      String HeadWriter = getString();
+      System.out.println("Enter the year the group was formed: ");
+      int year = getInt();
+      list.add(new Writing_Group(Email,Name,HeadWriter,year));
+
    }
 
 
