@@ -88,10 +88,12 @@ public class JPABooks {
       Writing_Group group = createWritingGroup(Writing_group);
       List<Books> books = new ArrayList<Books>();
       createBook(books, group, publisher);
-//      List<Individual_Author> individual_authors = new ArrayList<>();
-//      individual_authors.add(new Individual_Author("team7@gmail.com", "Audrey"));
-         //List<Ad_Hoc_Team> adhoc = new ArrayList<>();
-         //adhoc.add(new Individual_Author("audreysimp@ymail.com", "Audrey"));
+         List<Individual_Author> individual_authors = new ArrayList<>();
+         individual_authors.add(new Individual_Author("team7@gmail.com", "Audrey"));
+         List<Ad_Hoc_Team> adhoc = new ArrayList<>();
+
+         adhoc.add(new Ad_Hoc_Team("team10@gmail.com", "team 10"));
+         adhoc.get(0).addIndividual_Authors(individual_authors.get(0));
 
 //
 //      JPABooks.createEntity(individual_authors);
