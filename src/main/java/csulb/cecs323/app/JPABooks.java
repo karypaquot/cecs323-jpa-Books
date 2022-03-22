@@ -82,18 +82,20 @@ public class JPABooks {
       tx.begin();
    //hi
       //create publisher list and prompt user to enter information
-      List <Publishers> publishers = new ArrayList<Publishers>();
-      Publishers publisher = createPublishers(publishers);
-      List<Writing_Group> Writing_group = new ArrayList<Writing_Group>();
-      Writing_Group group = createWritingGroup(Writing_group);
-      List<Books> books = new ArrayList<Books>();
-      createBook(books, group, publisher);
-         List<Individual_Author> individual_authors = new ArrayList<>();
-         individual_authors.add(new Individual_Author("team7@gmail.com", "Audrey"));
+      //List <Publishers> publishers = new ArrayList<Publishers>();
+      //Publishers publisher = createPublishers(publishers);
+      //List<Writing_Group> Writing_group = new ArrayList<Writing_Group>();
+      //Writing_Group group = createWritingGroup(Writing_group);
+      //List<Books> books = new ArrayList<Books>();
+      //createBook(books, group, publisher);
+         List<Individual_Author> ia = new ArrayList<>();
+         ia.add(new Individual_Author("team7@gmail.com", "Audrey"));
          List<Ad_Hoc_Team> adhoc = new ArrayList<>();
 
          adhoc.add(new Ad_Hoc_Team("team10@gmail.com", "team 10"));
-         adhoc.get(0).addIndividual_Authors(individual_authors.get(0));
+         adhoc.get(0).addIndividual_Authors(ia.get(0));
+         JPABooks.createEntity(adhoc);
+         JPABooks.createEntity(ia);
 
 //
 //      JPABooks.createEntity(individual_authors);
