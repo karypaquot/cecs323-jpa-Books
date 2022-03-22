@@ -82,10 +82,15 @@ public class JPABooks {
 
       tx.begin();
       List<Ad_Hoc_Team> ad_hoc_teams =  new ArrayList<Ad_Hoc_Team>();
+      //JPABooks.createEntity(ad_hoc_teams);
       List<Publishers> publishers = new ArrayList<Publishers>();
+      //JPABooks.createEntity(publishers);
       List<Books> books = new ArrayList<Books>();
+      //JPABooks.createEntity(books);
       List<Writing_Group> writingGroups = new ArrayList<Writing_Group>();
+      //JPABooks.createEntity(writingGroups);
       List<Individual_Author> individualAuthors = new ArrayList<Individual_Author>();
+      //JPABooks.createEntity(individualAuthors);
 
       int mainChoice = mainMenu();
       while(mainChoice < 3) {
@@ -139,14 +144,53 @@ public class JPABooks {
             Publishers pub = createPublishers(publishers);
          }
          else if(mainChoice == 3){
-            if(publishers.size() == 0 && individualAuthors.size() == 0){
-               System.out.println("You cannot create a book because you don't have a Publisher and individual Author. Please create a Publisher and Individual Author before creating a Book");
-               mainChoice = mainMenu();
+            //check if publisher list is empty
+            if(publishers.size() == 0 ){
+               //if publisher list is empty notify user that book cannot be created
+               System.out.println("You cannot create a book because you don't have a Publisher");
             }
+            //if publisher list is not empty.....
             else{
+               //check to make sure none of the Authorint Entity lists are empty
+               if(writingGroups.size() == 0 && individualAuthors.size() == 0 && ad_hoc_teams.size() == 0){
+                  //if they are empty, notify the user that a book cannot be created
+                  System.out.println("You cannot create a book because you don't have any Authors");
+                  //if at least 1 list has data...
+               } else {
+                  //prompt user to enter the name of the publisher they want for the book
+                  System.out.println("Please enter the name of the Publisher that will be attached to the this book: ");
+                  String pub = getString();
+
+                  int index = 0;
+                  Boolean contPub = false; //initialized the contained publisher to false
+                     //iterate publishers list to check if the desired publisher exists
+                     for(int i = 0; i < publishers.size(); i++){
+                       String temp =  publishers.get(i).getName();
+                       if(temp.toLowerCase() == pub.toLowerCase()){
+                          index = i;
+                          contPub = true;
+                          break;
+                       } else if(i == publishers.size() - 1 && temp.toLowerCase() != pub.toLowerCase()){
+                          System.out.println("Publisher entered does not currently exist in the database.....");
+                       }
+                     }
+                  String auth = ""; //initialize author selection
+                  int index2 = 0;
+                  Boolean contGrp = false;
+                  Boolean contGrpLst = false;
+                  if(contPub == true){
+                     System.out.println("Please enter the name of the Writing Group, Individual Author, or");
+//                     if(JPABooks.getGroup(auth.toLowerCase()) == auth.toLowerCase()){
+//
+//                     }
+                  }
+
+               }
                //Books b = createBook();
             }
          }
+         mainChoice = mainMenu();
+
       }
       tx.commit();
       /*Publisher pub = manager.find(Publisher.class, publishers.get(0).get_publisherID());
