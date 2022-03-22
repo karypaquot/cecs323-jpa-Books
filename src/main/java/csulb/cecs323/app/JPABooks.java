@@ -88,6 +88,15 @@ public class JPABooks {
       Writing_Group group = createWritingGroup(Writing_group);
       List<Books> books = new ArrayList<Books>();
       createBook(books, group, publisher);
+//      List<Individual_Author> individual_authors = new ArrayList<>();
+//      individual_authors.add(new Individual_Author("team7@gmail.com", "Audrey"));
+         //List<Ad_Hoc_Team> adhoc = new ArrayList<>();
+         //adhoc.add(new Individual_Author("audreysimp@ymail.com", "Audrey"));
+
+//
+//      JPABooks.createEntity(individual_authors);
+//      JPABooks.createEntity(adhoc);
+
       /*System.out.println("\n\nEnter the Publisher's name: ");
       String n = getString();
       System.out.println("\n\nEnter the Publisher's Phone number: ");
@@ -99,20 +108,20 @@ public class JPABooks {
 
       //add a publisher to the publishers list
       //publishers.add(new Publishers("Julia", "1234567890", "navarro.jvn@gmail.com"));
-      for(int i = 0; i < publishers.size(); i++){
-         System.out.println((publishers.get(i)));
-      }
-      JPABooks.createEntity(publishers);
-
-      for(int j = 0; j < Writing_group.size(); j++){
-         System.out.println((Writing_group.get(j)));
-      }
-      JPABooks.createEntity(Writing_group);
-
-      for(int k = 0; k < Writing_group.size(); k++){
-         System.out.println((books.get(k)));
-      }
-      JPABooks.createEntity(books);
+//      for(int i = 0; i < publishers.size(); i++){
+//         System.out.println((publishers.get(i)));
+//      }
+//      JPABooks.createEntity(publishers);
+//
+//      for(int j = 0; j < Writing_group.size(); j++){
+//         System.out.println((Writing_group.get(j)));
+//      }
+//      JPABooks.createEntity(Writing_group);
+//
+//      for(int k = 0; k < Writing_group.size(); k++){
+//         System.out.println((books.get(k)));
+//      }
+//      JPABooks.createEntity(books);
 
 
       //create authoring entities list

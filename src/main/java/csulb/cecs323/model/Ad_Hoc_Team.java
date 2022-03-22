@@ -16,9 +16,9 @@ public class Ad_Hoc_Team extends Authoring_Entities{
 
     @ManyToMany
     @JoinTable (
-            name = "individual_on_team",
-            joinColumns = @JoinColumn(name = "team_email"),
-            inverseJoinColumns = @JoinColumn(name = "individual_email")
+            name = "ad_hoc_teams_member",
+            joinColumns = @JoinColumn(name = "ad_hoc_teams_email"),
+            inverseJoinColumns = @JoinColumn(name = "individual_authors_email")
     )
     Set<Individual_Author> individual_authors;
 

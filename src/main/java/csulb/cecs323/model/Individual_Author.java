@@ -17,8 +17,8 @@ public class Individual_Author extends Authoring_Entities{
     @ManyToMany (mappedBy = "individual_authors")
     Set<Ad_Hoc_Team> ad_hoc_teams;
 
-    public Individual_Author(String name, String email){
-        super(name,email);
+    public Individual_Author(String email, String name){
+        super(email,name);
     }
     public Individual_Author(){
     }
