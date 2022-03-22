@@ -265,11 +265,53 @@ public class JPABooks {
       list.add(adHoc);
       return adHoc;
    }
+   /**
+    * @param name    The name of the group that you are looking for
+    * @return        The Writing_Group instance corresponding to that group name
+    * */
+   public Writing_Group getGroup (String name){
+      //Run the native query that we defined in Writing_Group entity to find the right group
+      List<Writing_Group> groups = this.entityManager.createNamedQuery("ReturnWritingGroup", Writing_Group.class).setParameter(1, name).getResultList();
+      if(groups.size() == 0){
+         //Invalid group name passed in
+         return null;
+      } else {
+         //Return the group object that they asked for
+         return groups.get(0);
+      } //End of the getGroup method
+   }
+
+   /**
+    * @param name    The name of the author that you are looking for
+    * @return        The Individual_Author instance corresponding to that author name
+    * */
+   public Individual_Author getAuthor (String name){
+      //Run the native query that we defined in Individual_Author entity to find the right author
+      List<Individual_Author> authors = this.entityManager.createNamedQuery("ReturnIndividualAuthor", Individual_Author.class).setParameter(1, name).getResultList();
+      if(authors.size() == 0){
+         //Invalid author name passed in
+         return null;
+      } else {
+         //Return the author object that they asked for
+         return authors.get(0);
+      } //End of the getAuthor method
+   }
+
+   /**
+    * @param name    The name of the team that you are looking for
+    * @return        The Ad_Hoc_Team instance corresponding to that team name
+    * */
+   public Ad_Hoc_Team getTeam (String name){
+      //Run the native query that we defined in Ad_Hoc_Team entity to find the right team
+      List<Ad_Hoc_Team> teams = this.entityManager.createNamedQuery("ReturnAdHocTeam", Ad_Hoc_Team.class).setParameter(1, name).getResultList();
+      if(teams.size() == 0){
+         //Invalid team name passed in
+         return null;
+      } else {
+         //Return the team object that they asked for
+         return teams.get(0);
+      } //End of the getTeam method
+   }
 
 
-
-
-
-
-
-} // End of CarClub class
+} // End of JPABooks class
