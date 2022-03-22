@@ -1,6 +1,10 @@
 package csulb.cecs323.model;
 import javax.persistence.*;
 
+/**
+ * A physical book that a person can read. A book has a Title, Authoring entity, Publisher, year published,
+ * and an ISBN to uniquely identify it from other books. This class creates a book with these attributes.
+ */
 @Entity
 public class Books {
 
@@ -23,10 +27,15 @@ public class Books {
     @Column (nullable = false)
     private int year_published;
 
-
-
-
-
+    /**
+     * The constructor for the Books class. It stashes a books ISBN, title, year_published,
+     * authoring_Entities, and publisher to the Entity.
+     * @param ISBN      String
+     * @param title     String
+     * @param year_published int
+     * @param authoring_Entities Authoring_entities
+     * @param publisher Publishers
+     */
     public Books(String ISBN, String title, int year_published,Authoring_Entities authoring_Entities, Publishers publisher){
         this.ISBN = ISBN;
         this.title = title;
@@ -35,12 +44,18 @@ public class Books {
         this.Publishers = publisher;
 
     }
+    /**
+     * The default constructor for the Books class.
+     */
     public Books(){
-
     }
-
-
-
+    /**
+     * The toString class returns a String with the books ISBN, Title, Year Published, and publisher.
+     * @return ISBN String
+     * @return title String
+     * @return year_published int
+     * @return publisher.getName() String
+     */
     @Override
     public String toString () {
         return "\nBooks - ISBN: " + this.ISBN + "\nTitle: " + this.title +
