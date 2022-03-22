@@ -33,4 +33,14 @@ public class Ad_Hoc_Team extends Authoring_Entities{
     public String toString(){
         return super.toString();
     }
+
+    /***
+     *@param authors
+     * takes authors as parameter and adds into the set individual_authors
+     */
+    public void addIndividual_Authors(Individual_Author authors){
+        individual_authors.add(authors);
+    }
 }
+
+
