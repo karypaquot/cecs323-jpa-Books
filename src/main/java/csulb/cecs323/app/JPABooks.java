@@ -92,112 +92,237 @@ public class JPABooks {
       List<Individual_Author> individualAuthors = new ArrayList<Individual_Author>();
       //JPABooks.createEntity(individualAuthors);
 
+      //prompt user to create/choose authoring entity, create a publisher, or create a book
       int mainChoice = mainMenu();
-      while(mainChoice < 3) {
-         if (mainChoice == 1) {
-            int authorChoice = authorMenu();
-            while (authorChoice < 3) {
-               int choice1;
-               //select an existing authoring entity or create a new authoring entity
-               if (authorChoice == 1) {
-                  choice1 = existingAuthorsMenu();
-                  if (choice1 == 1) {
-                     //choose existing writing group
+      while (mainChoice < 3) {
 
-                  } else if (choice1 == 2) {
-                     //choose existing individual author
+         //if user decides to display information
+         if(mainChoice == 1) {
+            //prompt user to select the information they would like to have displayed
+            int dispChoice = displayMenu();
 
-                  } else if (choice1 == 3) {
-                     //choose existing ad hoc team
-
-                  } else if (choice1 == 4) {
-                     //exit while loop
-                     System.out.println("\n\nExiting program.....");
-                     break;
+            //if user decides to display all publisher information
+            if(dispChoice == 1) {
+               //if publishers exist, then display all existing publishers and their information
+               if(publishers.size() > 0){
+                  for(int i = 0; i < publishers.size(); i++){
+                     System.out.println("\n" + publishers.get(i));
                   }
-               }
-               //create an authoring entity
-               int choice2;
-               if (authorChoice == 2) {
-                  //get choice for either writing group, individual author, ad hoc team
-                  choice2 = createAuthorMenu();
-                  //create writing group
-                  if (choice2 == 1) {
-                     Writing_Group wr = createWritingGroup(writingGroups);
-                  }
-                  // creates an instance of  individual Author
-                  else if (choice2 == 2) {
-                     Individual_Author ia = createIndividualAuthor(individualAuthors);
-                  }
-                  //creates an instance of an ad_hoc_team
-                  else if (choice2 == 3) {
-                     Ad_Hoc_Team AHT = createAdHocTeam(ad_hoc_teams);
-                  }
-               }
-               //keep for end of while loop
-               authorChoice = authorMenu();
-
-            }
-         }
-         else if (mainChoice == 2)
-         {
-            Publishers pub = createPublishers(publishers);
-         }
-         else if(mainChoice == 3){
-            //check if publisher list is empty
-            if(publishers.size() == 0 ){
-               //if publisher list is empty notify user that book cannot be created
-               System.out.println("You cannot create a book because you don't have a Publisher");
-            }
-            //if publisher list is not empty.....
-            else{
-               //check to make sure none of the Authorint Entity lists are empty
-               if(writingGroups.size() == 0 && individualAuthors.size() == 0 && ad_hoc_teams.size() == 0){
-                  //if they are empty, notify the user that a book cannot be created
-                  System.out.println("You cannot create a book because you don't have any Authors");
-                  //if at least 1 list has data...
+                  //if no publishers exist, notify the user and bring them back to the main menu
                } else {
-                  //prompt user to enter the name of the publisher they want for the book
-                  System.out.println("Please enter the name of the Publisher that will be attached to the this book: ");
-                  String pub = getString();
-
-                  int index = 0;
-                  Boolean contPub = false; //initialized the contained publisher to false
-                     //iterate publishers list to check if the desired publisher exists
-                     for(int i = 0; i < publishers.size(); i++){
-                       String temp =  publishers.get(i).getName();
-                       if(temp.toLowerCase() == pub.toLowerCase()){
-                          index = i;
-                          contPub = true;
-                          break;
-                       } else if(i == publishers.size() - 1 && temp.toLowerCase() != pub.toLowerCase()){
-                          System.out.println("Publisher entered does not currently exist in the database.....");
-                       }
-                     }
-                  String auth = ""; //initialize author selection
-                  int index2 = 0;
-                  Boolean contGrp = false;
-                  Boolean contGrpLst = false;
-                  if(contPub == true){
-                     System.out.println("Please enter the name of the Writing Group, Individual Author, or");
-//                     if(JPABooks.getGroup(auth.toLowerCase()) == auth.toLowerCase()){
-//
-//                     }
-                  }
-
+                  System.out.println("\n\nThere are no current existing publishers.");
                }
-               //Books b = createBook();
+
+               //if the user decides to display all book information
+            } else if(dispChoice == 2){
+               //if books exist, then display all existing books and their information
+               if(books.size() > 0){
+                  for(int j = 0; j < books.size(); j++){
+                     System.out.println("\n" + books.get(j));
+                  }
+                  //if no books exist, notify the user and bring them back to the main menu
+               } else {
+                  System.out.println("\n\nThere are no current existing books.");
+               }
+
+               //if the user decides to display all writing groups and their information
+            } else if(dispChoice == 3){
+               //if writing groups exist, then display all existing writing groups and their information
+               if(writingGroups.size() > 0){
+                  for(int k = 0; k < writingGroups.size(); k++){
+                     System.out.println("\n" + writingGroups.get(k));
+                  }
+                  //if no writing groups exist, notify the user and bring them back to the main menu
+               } else {
+                  System.out.println("\n\nThere are no current existing books.");
+               }
+
+               //if the user decides to display all individual authors and their information
+            } else if(dispChoice == 4) {
+               //if individual authors exist, then display all existing individual authors and their information
+               if(individualAuthors.size() > 0){
+                  for(int l = 0; l < individualAuthors.size(); l++){
+                     System.out.println("\n" + individualAuthors.get(l));
+                  }
+                  //if no individual authors exist, notify the user and bring them back to the main menu
+               } else {
+                  System.out.println("\n\nThere are no current existing individual authors.");
+               }
+
+               //if the user decides to display all Ad Hoc Teams and their information
+            } else if(dispChoice == 5) {
+               //if the ad hoc teams exist, then display all existing ad hoc teams and their information
+               if(ad_hoc_teams.size() > 0){
+                  for(int m = 0; m < ad_hoc_teams.size(); m++){
+                     System.out.println("\n" + ad_hoc_teams.get(m));
+                  }
+                  //if no ad hoc teams exist, notify the user and bring them back to the main menu
+               } else {
+                  System.out.println("\n\nThere are no current existing ad hoc teams.");
+               }
             }
          }
-         mainChoice = mainMenu();
 
+         //if the user decides to create an object
+         else if(mainChoice == 2)
+         {
+            //prompt user to choose what they wish to create
+            int createChoice = createMenu();
+
+            //if user decides to create an author
+            if(createChoice == 1)
+            {
+               int authorChoice = createAuthorMenu();
+               if(authorChoice == 1)
+               {
+                  Writing_Group wr = createWritingGroup(writingGroups);
+               }
+               else if(authorChoice == 2)
+               {
+                  Individual_Author ia = createIndividualAuthor(individualAuthors);
+                  if(ad_hoc_teams.size() > 0)
+                  {
+                     System.out.println("Would you like to add this author to an Ad Hoc Team? Enter yes/no");
+                     String answer = getString();
+                     if(answer.equalsIgnoreCase("yes"))
+                     {
+                        System.out.println("Please choose which ad hoc team you would like to add the author to");
+                        //display all ad hoc teams
+                        for (int i = 0; i < ad_hoc_teams.size(); i++)
+                        {
+                           System.out.println("\n\n" + (i + 1) + ". " + ad_hoc_teams.get(i));
+                        }
+                        int team = getInt();
+                        ad_hoc_teams.get(team - 1).addIndividual_Authors(ia);
+                        System.out.println("The individual author has been added to the ad hoc team");
+                     }
+
+                  }
+               }
+               else if(authorChoice == 3)
+               {
+                  Ad_Hoc_Team aht = createAdHocTeam(ad_hoc_teams);
+               }
+            }
+            else if(createChoice == 2)
+            {
+               Publishers pub = createPublishers(publishers);
+            }
+            else if(createChoice == 3)
+            {
+               if(publishers.size() == 0)
+               {
+                  System.out.println("No publishers have been created, please create a " +
+                          "publisher first");
+               }
+               else
+               {
+                  System.out.print("Please choose the publisher of the book");
+                  for (int j = 0; j < publishers.size(); j++)
+                  {
+                     System.out.println("\n" + (j + 1) + ". " + publishers.get(j));
+                  }
+                  int whichPublisher = getInt();
+                  Publishers tempPub = publishers.get(whichPublisher - 1);
+                  System.out.println("\nPlease choose which authoring entity you want to use: \n" +
+                          "1. Writing Group \n2. Individual Author \n3. Ad Hoc Team");
+                  int author = getInt();
+                  if(author == 1)
+                  {
+                     if(writingGroups.size() == 0)
+                     {
+                        System.out.println("There are no Writing Groups created. Please create one first.");
+                     }
+                     else
+                     {
+                        System.out.println("Please choose which writing group is the author of the book");
+                        for (int i = 0; i < writingGroups.size(); i++)
+                        {
+                           System.out.println("\n" + (i + 1) + ". " + writingGroups.get(i));
+                        }
+                        int group = getInt();
+                        Writing_Group tempGroup = writingGroups.get(group - 1);
+                        createBook(books, tempGroup, tempPub);
+                     }
+
+                  }
+                  else if(author == 2)
+                  {
+                     if(individualAuthors.size() == 0)
+                     {
+                        System.out.println("There are no Individual Authors created. Please create one first.");
+                     }
+                     else
+                     {
+                        System.out.println("Please choose which individual author is the author of the book");
+                        for (int i = 0; i < individualAuthors.size(); i++)
+                        {
+                           System.out.println("\n" + (i+1) + ". " + individualAuthors.get(i));
+                        }
+                        int group = getInt();
+                        Individual_Author tempIndividual = individualAuthors.get(group - 1);
+                        createBook(books, tempIndividual, tempPub);
+                     }
+                  }
+                  else if(author == 3)
+                  {
+                     if(ad_hoc_teams.size() == 0)
+                     {
+                        System.out.println("There are no Ad Hoc Teams created. Please create one first.");
+                     }
+                     else
+                     {
+                        System.out.println("Please choose which ad hoc team is the author of the book");
+                        for (int i = 0; i < ad_hoc_teams.size(); i++)
+                        {
+                           System.out.println("\n" + (i + 1) + ". " + ad_hoc_teams.get(i));
+                        }
+                        int group = getInt();
+                        Ad_Hoc_Team tempAdHoc = ad_hoc_teams.get(group - 1);
+                        createBook(books, tempAdHoc, tempPub);
+                     }
+                  }
+               }
+            }
+         }
+
+         //user is brought back to the main menu to start from the beginning again
+         mainChoice = mainMenu();
       }
+      JPABooks.createEntity(ad_hoc_teams);
+      JPABooks.createEntity(publishers);
+      JPABooks.createEntity(books);
+      JPABooks.createEntity(writingGroups);
+      JPABooks.createEntity(individualAuthors);
       tx.commit();
-      /*Publisher pub = manager.find(Publisher.class, publishers.get(0).get_publisherID());
-      manager.getTransaction().begin();
-      manager.remove(pub);
-      manager.getTransaction().commit();
-       */
+
+      //prompt user to delete a book
+//      boolean delete = false;
+//      int index = 0;
+//      while(!delete){
+//         System.out.print("\n\nLet's try deleting a book now!!\n\nEnter the title for the book you'd like to delete: ");
+//         String title = getString();
+//         System.out.print("\n\nNow enter the name of of the publisher that published this book: ");
+//         String pub = getString();
+//         for(int i = 0; i < books.size(); i++){
+//            String tempT = books.get(i).getTitle();
+//            tempT = tempT.toLowerCase();
+//            title = title.toLowerCase();
+//            String tempP = books.get(i).getPublishers().getName();
+//            tempP = tempP.toLowerCase();
+//            pub = pub.toLowerCase();
+//            if(tempT == title && tempP == pub){
+//               index = i;
+//               delete = true;
+//            } else if(i == books.size() - 1 && tempT != title && tempP != pub){
+//               System.out.println("\n\nSorry, the book you are trying to delete does not exist. Please try again....");
+//            }
+//         }
+//         Books b = manager.find(Books.class, b.getISBN());
+//         manager.getTransaction().begin();
+//         manager.remove(b);
+//         manager.getTransaction().commit();
+//      }
 
 
       LOGGER.fine("End of Transaction");
@@ -257,57 +382,43 @@ public class JPABooks {
       }
       return answer;
    }
-   /**
-    * Menu method utilizes scanner to take in user input, stores the line
-    * Then returns a String when method is called
-    * @return input String value from scanner
-    */
-   public static int authorMenu(){
-      System.out.println("Select an option:\n" +
-              "1. Select an existing Writing Group, Individual Author, or Ad Hoc Team\n" +
-              "2. Create a Writing Group, Individual Author, or Ad Hoc Team\n" +
-              "3. Exit");
-      int answer = getInt();
-      if(answer > 3 || answer < 1){
-         System.out.println("\n\nPlease enter a number from 1 - 3" + "\n1. Select an existing Writing Group, Individual Author, or Ad Hoc Team\n" +
-                 "2. Create a Writing Group, Individual Author, or Ad Hoc Team" +
-                 "\n3. Exit");
-         answer = getInt();
-      }
-      return answer;
-   }
 
-   /**
-    * existingAuthorsMenu prompts the user to choose an option from the displayed menu
-    * @return choice of the user
-    */
-   public static int existingAuthorsMenu()
-   {
-      System.out.println("\n\nSelect an option: \n1. Choose an existing Writing Group\n2. Choose an existing Individual Author\n3." +
-              "Choose an existing Ad Hoc Team\n4. Exit");
+   public static int displayMenu(){
+      //display menu for user to select from
+      System.out.println("\nSelect an option by entering the menu number:\n1. Display all Publishers and their information" +
+              "\n2. Display all Books and their information\n3. Display all Writing Groups and their information" +
+              "\n4. Display all Individual Authors and their information\n5. Display all Ad Hoc Teams and their information\n6. Back to Main Menu");
+      //record user's choice
       int choice = getInt();
-      if (choice > 4 || choice < 1)
-      {
-         System.out.println("\nPlease enter a number from 1-4" + "\n1. Choose an existing Writing Group\n2. Choose an existing Individual Author\n3." +
-                 "Choose an existing Ad Hoc Team\n4. Exit");
+      //if the user selects a number not on the menu, they will be prompted to try again
+      while(choice > 6 || choice < 1){
+         System.out.println("\nPlease be sure to select a menu option from 1 - 6\n\nSelect an option by entering the menu number:\n1. Display all Publishers and their information" +
+                 "\n2. Display all Books and their information\n3. Display all Writing Groups and their information" +
+                 "\n4. Display all Individual Authors and their information\n5. Display all Ad Hoc Teams and their information\n6. Back to Main Menu");
          choice = getInt();
       }
       return choice;
    }
 
-//   public Authoring_Entities displayExistingMenu(int c){
-//      Writing_Group a;
-//      Individual_Author b;
-//      if(c == 1){
-//         System.out.println("\n\nPlease enter the name of the Group you'd like to select: ");
-//         String n = getString();
-//         a = getGroup(n);
-//      } else if(c == 2){
-//         System.out.println("\n\nPlease enter the name of the Individual Author you'd like to select: ");
-//         String n = getString();
-//         b = getAuthor(n);
-//      }
-//   }
+   /**
+    * Menu method utilizes scanner to take in user input, stores the line
+    * Then returns a String when method is called
+    * @return input String value from scanner
+    */
+   public static int createMenu(){
+      System.out.println("\nSelect an option: \n1. Create an authoring entity\n2. Create" +
+              " a publisher\n3. Create a book\n4. Back to Main Menu");
+      int choice = getInt();
+      while(choice > 4 || choice < 1)
+      {
+         System.out.println("\nPlease choose between 1-4: \n1. Create an authoring entity\n2. Create " +
+                 "a publisher\n3. Create a book\n4. Back to Main Menu");
+         choice = getInt();
+      }
+      return choice;
+   }
+
+
 
    /**
     * mainMenu() prompts the user to choose an option of either creating/choosing an authoring entity, creating a publisher
@@ -315,13 +426,11 @@ public class JPABooks {
     */
    public static int mainMenu()
    {
-      System.out.println("Select an option:\n1. Create or choose an authoring entity \n2. Create a " +
-              "publisher \n3. Create a book \n4. Exit");
+      System.out.println("\nMAIN MENU:\nPlease select an option by entering the menu number:\n1. Display an object\n2. Create an object\n3. Exit");
       int choice = getInt();
-      if (choice > 4 || choice < 1)
+      while(choice > 3 || choice < 1)
       {
-         System.out.println("Please enter a number from 1-4:" + "\n1. Create or choose an authoring entity \n2. Create a " +
-                 "publisher \n3. Create a book \n4. Exit");
+         System.out.println("Please select an option by entering the menu number:\n1. Display an object\n2. Create an object\n3. Exit" );
          choice = getInt();
       }
       return choice;
@@ -332,10 +441,11 @@ public class JPABooks {
     * @return choice of user
     */
    public static int createAuthorMenu(){
-      System.out.println("Select an option: \n1. Create a Writing Group\n2: Create Individual Author\n3: Create Ad Hoc Team\n 4: Exit");
+      System.out.println("\nSelect an option: \n1. Create a Writing Group\n2: Create Individual Author\n3: Create Ad Hoc Team\n4: Back to Main Menu");
       int choice = getInt();
-      if(choice>4 || choice<1){
-         System.out.println("\nPlease enter a number from 1-4 ");
+      while(choice>4 || choice<1){
+         System.out.println("\nPlease enter a number from 1-4\nSelect an option: \n1. Create a Writing Group\n2: Create Individual Author\n3: Create Ad Hoc Team\n4: Back to Main Menu");
+         choice = getInt();
       }
       return choice;
    }
@@ -412,7 +522,7 @@ public class JPABooks {
       String Name = getString();
       System.out.println("Enter the author's email: ");
       String Email = getString();
-      Individual_Author author = new Individual_Author(Name,Email);
+      Individual_Author author = new Individual_Author(Email, Name);
       list.add(author);
       return author;
    }

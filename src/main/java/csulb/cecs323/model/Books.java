@@ -49,6 +49,24 @@ public class Books {
      */
     public Books(){
     }
+
+    public void setAuthoring_Entity(Authoring_Entities ae)
+    {
+        this.Authoring_Entities = ae;
+    }
+
+    public void setTitle(String t){
+        this.title = t;
+    }
+
+    public String getTitle(){
+        return title;
+    }
+
+    public csulb.cecs323.model.Publishers getPublishers() {
+        return Publishers;
+    }
+
     /**
      * The toString class returns a String with the books ISBN, Title, Year Published, and publisher.
      * @return ISBN String
@@ -58,8 +76,8 @@ public class Books {
      */
     @Override
     public String toString () {
-        return "\nBooks - ISBN: " + this.ISBN + "\nTitle: " + this.title +
-                "\nYear Published: " + this.year_published + "\nPublisher: " + this.Publishers.getName();
+        return "\nISBN: " + this.ISBN + "\nTitle: " + this.title +
+                "\nYear Published: " + this.year_published + "\nPublisher: " + this.Publishers.getName() +"\nAuthor: " + this.Authoring_Entities.getName() + "\nAuthor Email: " + this.Authoring_Entities.getEmail();
     }
 
 

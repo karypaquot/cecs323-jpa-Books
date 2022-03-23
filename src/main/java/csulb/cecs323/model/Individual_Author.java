@@ -25,7 +25,7 @@ public class Individual_Author extends Authoring_Entities{
 
     @Override
     public String toString(){
-        return "Individual Writer: " + getName() + "\nIndividual Writer's Email " + this.getEmail();
+        return "Individual Writer's Email: " + this.getEmail() + "\nIndividual Writer: " + this.getName();
     }
 
 }

@@ -70,7 +70,7 @@ public class Publishers {
     }
     @Override
     public String toString () {
-        return "\nPublisher - ID: " + "\nName: " + this.getName() +
+        return "\nName: " + this.getName() +
                 "\nPhone #: " + this.getPhone() + "\nEmail: " + this.getEmail();
     }
 

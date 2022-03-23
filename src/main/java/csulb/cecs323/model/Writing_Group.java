@@ -48,6 +48,6 @@ public class Writing_Group extends Authoring_Entities{
 
     @Override
     public String toString(){
-        return super.toString() + "\nHead Writer: " + getHeadWriter() + "\nYear Group Form: " + this.getYearFormed();
+        return super.toString() + "\nHead Writer: " + getHeadWriter() + "\nYear Group Formed: " + this.getYearFormed();
     }
 }
