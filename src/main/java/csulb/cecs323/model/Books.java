@@ -44,6 +44,7 @@ public class Books {
         this.Publishers = publisher;
 
     }
+
     /**
      * The default constructor for the Books class.
      */
@@ -66,6 +67,14 @@ public class Books {
     public csulb.cecs323.model.Publishers getPublishers() {
         return Publishers;
     }
+
+    public String getISBN(){
+        return ISBN;
+    }
+
+
+
+
 
     /**
      * The toString class returns a String with the books ISBN, Title, Year Published, and publisher.

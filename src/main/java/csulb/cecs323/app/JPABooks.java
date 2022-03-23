@@ -297,32 +297,41 @@ public class JPABooks {
       tx.commit();
 
       //prompt user to delete a book
-//      boolean delete = false;
-//      int index = 0;
-//      while(!delete){
-//         System.out.print("\n\nLet's try deleting a book now!!\n\nEnter the title for the book you'd like to delete: ");
-//         String title = getString();
-//         System.out.print("\n\nNow enter the name of of the publisher that published this book: ");
-//         String pub = getString();
-//         for(int i = 0; i < books.size(); i++){
-//            String tempT = books.get(i).getTitle();
-//            tempT = tempT.toLowerCase();
-//            title = title.toLowerCase();
-//            String tempP = books.get(i).getPublishers().getName();
-//            tempP = tempP.toLowerCase();
-//            pub = pub.toLowerCase();
-//            if(tempT == title && tempP == pub){
-//               index = i;
-//               delete = true;
-//            } else if(i == books.size() - 1 && tempT != title && tempP != pub){
-//               System.out.println("\n\nSorry, the book you are trying to delete does not exist. Please try again....");
-//            }
-//         }
-//         Books b = manager.find(Books.class, b.getISBN());
-//         manager.getTransaction().begin();
-//         manager.remove(b);
-//         manager.getTransaction().commit();
-//      }
+      boolean delete = false;
+      String title = "";
+      String pub = "";
+      int index = 0;
+      //Map<String, Object> ck = new HashMap<>();
+      while(!delete){
+         System.out.print("\n\nLet's try deleting a book now!!\n\nEnter the title for the book you'd like to delete: ");
+         title = getString();
+         System.out.print("\n\nNow enter the name of of the publisher that published this book: ");
+         pub = getString();
+
+
+         for(int i = 0; i < books.size(); i++){
+            String tempT = books.get(i).getTitle();
+            String tempP = books.get(i).getPublishers().getName();
+            tempT = tempT.toLowerCase();
+            tempP = tempP.toLowerCase();
+            title = title.toLowerCase();
+            pub = pub.toLowerCase();
+            if(tempT == title && tempP == pub){
+               System.out.println("WE FOUND THE BOOK!!" + books.get(i));
+               index = i;
+
+               delete = true;
+            } else if(i == books.size() - 1 && tempT != title && tempP != pub){
+               System.out.println("\n\nSorry, the book you are trying to delete does not exist. Please try again....");
+            }
+         }
+
+      }
+
+      Books b = manager.find(Books.class, books.get(index).getISBN());
+      manager.getTransaction().begin();
+      manager.remove(b);
+      manager.getTransaction().commit();
 
 
       LOGGER.fine("End of Transaction");
