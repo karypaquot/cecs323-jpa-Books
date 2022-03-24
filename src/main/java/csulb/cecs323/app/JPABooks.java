@@ -81,7 +81,7 @@ public class JPABooks {
 
       //prompt user to create/choose authoring entity, create a publisher, or create a book
       int mainChoice = mainMenu();
-      while (mainChoice < 3) {
+      while (mainChoice < 4) {
 
          //initiate information to be updated to the database
          tx.begin();
@@ -175,7 +175,7 @@ public class JPABooks {
                if(authorChoice == 1)
                {
                   //the user is then prompted to enter the information needed to create a writing group
-                  Writing_Group wr = createWritingGroup(writingGroups);
+                  createWritingGroup(writingGroups);
                }
                //if user decides to create an individual author
                else if(authorChoice == 2)
@@ -225,14 +225,14 @@ public class JPABooks {
                else if(authorChoice == 3)
                {
                   //the user is then prompted to enter the information needed to create a new ad hoc team
-                  Ad_Hoc_Team aht = createAdHocTeam(ad_hoc_teams);
+                  createAdHocTeam(ad_hoc_teams);
                }
             }
             //if the user wants to create a publisher
             else if(createChoice == 2)
             {
                //the user is then prompted to enter the information to create a new publisher
-               Publishers pub = createPublishers(publishers);
+               createPublishers(publishers);
             }
             //if the user decides to create a book
             else if(createChoice == 3)
@@ -312,7 +312,7 @@ public class JPABooks {
                      {
                         System.out.println("There are no Individual Authors created. Please create one first.");
                      }
-                     //other wise the user will be prompted to select from the existing individual authors
+                     //otherwise the user will be prompted to select from the existing individual authors
                      //to attach to the book
                      else
                      {
@@ -369,6 +369,76 @@ public class JPABooks {
                }
             }
          }
+         else if(mainChoice == 3)
+         {
+            //prompt the user to enter which book they want to change the author of
+            System.out.println("\nYou have the option to update the author of a book! Which book would you like to" +
+                    " change the author of? Please choose a number: ");
+            //display the books in the database
+            if(books.size() > 0) {
+               for (int j = 0; j < books.size(); j++) {
+                  System.out.println("\n" + (j + 1) + ". " + books.get(j));
+               }
+            }
+            //store what book the user chooses
+            int whichBook = getInt();
+            //prompt the user to enter which type of author they want to make as the new author
+            System.out.println("What kind of author is the new author? Please choose one:\n" +
+                    "1. Writing Group\n2. Individual Author\n3. Ad Hoc Team");
+            int choice = getInt();
+            while(choice > 3 || choice < 1)
+            {
+               System.out.println("Please choose a number in range: \n1. Writing Group\n2. Individual Author\n3. Ad Hoc Team");
+               choice = getInt();
+            }
+            int author;
+            //if the user wants a writing group
+            if(choice == 1)
+            {
+               //prompt the user to choose which writing group they want
+               System.out.print("Choose which writing group is the new author of your book");
+               //display the writing groups in the database
+               for (int i = 0; i < writingGroups.size(); i++)
+               {
+                  System.out.println("\n" + (i + 1) + ". " + writingGroups.get(i));
+               }
+               //store which number writing group
+               author = getInt();
+               //change the author of the book
+               books.get(whichBook - 1).setAuthoring_Entity(writingGroups.get(author - 1));
+            }
+            //if the user wants an individual author
+            else if(choice == 2)
+            {
+               //prompt the user to choose which individual author they want
+               System.out.print("Choose which individual author is the new author of your book");
+               //display the individual authors in the database
+               for (int i = 0; i < individualAuthors.size(); i++)
+               {
+                  System.out.println("\n" + (i+1) + ". " + individualAuthors.get(i));
+               }
+               //store which number individual author
+               author = getInt();
+               //change the author of the book
+               books.get(whichBook - 1).setAuthoring_Entity(individualAuthors.get(author - 1));
+            }
+            //if the user wants an ad hoc team
+            else if(choice == 3)
+            {
+               //prompt the user to choose which ad hoc team they want
+               System.out.print("Choose which ad hoc team is the new author of your book");
+               //display the ad hoc teams in the database
+               for (int i = 0; i < ad_hoc_teams.size(); i++)
+               {
+                  System.out.println("\n" + (i + 1) + ". " + ad_hoc_teams.get(i));
+               }
+               //store which number ad hoc team
+               author = getInt();
+               //change the author of the book
+               books.get(whichBook - 1).setAuthoring_Entity(ad_hoc_teams.get(author - 1));
+            }
+         }
+
          //all new information is added to the database tables
          JPABooks.createEntity(ad_hoc_teams);
          JPABooks.createEntity(publishers);
@@ -485,14 +555,15 @@ public class JPABooks {
    /**
     * mainMenu() prompts the user to choose an option of either creating/choosing an authoring entity, creating a publisher
     * a book
+    * return an integer that the user decided to
     */
    public static int mainMenu()
    {
-      System.out.println("\nMAIN MENU:\nPlease select an option by entering the menu number:\n1. Display an object\n2. Create an object\n3. Exit");
+      System.out.println("\nMAIN MENU:\nPlease select an option by entering the menu number:\n1. Display an object\n2. Create an object\n3. Update a book\n4. Exit");
       int choice = getInt();
-      while(choice > 3 || choice < 1)
+      while(choice > 4 || choice < 1)
       {
-         System.out.println("Please select an option by entering the menu number:\n1. Display an object\n2. Create an object\n3. Exit" );
+         System.out.println("Please select an option by entering the menu number:\n1. Display an object\n2. Create an object\n3. Update a book\n4. Exit");
          choice = getInt();
       }
       return choice;
@@ -519,16 +590,15 @@ public class JPABooks {
     * @param list the List of publishers
     * @return the new instance of publisher that was created
     */
-   public static Publishers createPublishers(List<Publishers> list){
+   public static void createPublishers(List<Publishers> list){
       System.out.println("Enter the publisher's name: ");
       String publishers_name = getString();
       System.out.println("Enter the publisher's number: ");
       String publishers_number = getString();
       System.out.println("Enter the publisher's email: ");
       String publishers_email = getString();
-      Publishers new_publisher = new Publishers(publishers_name,publishers_number,publishers_email);
-      list.add(new_publisher);
-      return new_publisher;
+      list.add(new Publishers(publishers_name,publishers_number,publishers_email));
+
    }
 
    /**
@@ -558,7 +628,7 @@ public class JPABooks {
     * @param list    The list of the writing groups
     * @return  the writing group instance that is created
     */
-   public static Writing_Group createWritingGroup(List<Writing_Group> list){
+   public static void createWritingGroup(List<Writing_Group> list){
       System.out.println("Enter the Writing Group's Name: ");
       String Name = getString();
       System.out.println("Enter the Writing Group's email: ");
@@ -567,9 +637,7 @@ public class JPABooks {
       String HeadWriter = getString();
       System.out.println("Enter the year the group was formed: ");
       int year = getInt();
-      Writing_Group wr = new Writing_Group(Email,Name,HeadWriter,year);
-      list.add(wr);
-      return wr;
+      list.add(new Writing_Group(Email,Name,HeadWriter,year));
 
    }
    /**
@@ -595,15 +663,15 @@ public class JPABooks {
     * @return      The Ad_Hoc_team instance corresponding to the user's input
     */
 
-   public static Ad_Hoc_Team createAdHocTeam(List<Ad_Hoc_Team> list){
+   public static void createAdHocTeam(List<Ad_Hoc_Team> list){
       System.out.println("Enter the author's Name: ");
       String Name = getString();
       System.out.println("Enter the author's email: ");
       String Email = getString();
-      Ad_Hoc_Team adHoc= new Ad_Hoc_Team(Email,Name);
-      list.add(adHoc);
-      return adHoc;
+      list.add(new Ad_Hoc_Team(Email,Name));
    }
+
+
    /**
     * getGroup grabs the specific group with the specified name from the parameter
     * @param name    The name of the group that you are looking for
