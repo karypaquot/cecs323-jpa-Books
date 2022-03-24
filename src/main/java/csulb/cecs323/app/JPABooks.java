@@ -21,10 +21,7 @@ import java.util.concurrent.Flow;
 import java.util.logging.Level;
 
 import java.util.*;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -80,24 +77,25 @@ public class JPABooks {
       LOGGER.fine("Begin of Transaction");
       EntityTransaction tx = manager.getTransaction();
 
-      tx.begin();
-      List<Ad_Hoc_Team> ad_hoc_teams =  new ArrayList<Ad_Hoc_Team>();
-      //JPABooks.createEntity(ad_hoc_teams);
-      List<Publishers> publishers = new ArrayList<Publishers>();
-      //JPABooks.createEntity(publishers);
-      List<Books> books = new ArrayList<Books>();
-      //JPABooks.createEntity(books);
-      List<Writing_Group> writingGroups = new ArrayList<Writing_Group>();
-      //JPABooks.createEntity(writingGroups);
-      List<Individual_Author> individualAuthors = new ArrayList<Individual_Author>();
-      //JPABooks.createEntity(individualAuthors);
+
 
       //prompt user to create/choose authoring entity, create a publisher, or create a book
       int mainChoice = mainMenu();
       while (mainChoice < 3) {
 
+         //initiate information to be updated to the database
+         tx.begin();
+
+         //create array lists of the tables by gathering the data that is already in the database
+         List<Ad_Hoc_Team> ad_hoc_teams =  manager.createQuery("Select a From Ad_Hoc_Team a ", Ad_Hoc_Team.class).getResultList();
+         List<Publishers> publishers = manager.createQuery("Select a From Publishers a ", Publishers.class).getResultList();
+         List<Books> books = manager.createQuery("Select a From Books a ", Books.class).getResultList();
+         List<Writing_Group> writingGroups = manager.createQuery("Select a From Writing_Group a ", Writing_Group.class).getResultList();
+         List<Individual_Author> individualAuthors = manager.createQuery("Select a From Individual_Author a ", Individual_Author.class).getResultList();
+
          //if user decides to display information
          if(mainChoice == 1) {
+
             //prompt user to select the information they would like to have displayed
             int dispChoice = displayMenu();
 
@@ -173,19 +171,32 @@ public class JPABooks {
             if(createChoice == 1)
             {
                int authorChoice = createAuthorMenu();
+               //if user decides to create a writing group
                if(authorChoice == 1)
                {
+                  //the user is then prompted to enter the information needed to create a writing group
                   Writing_Group wr = createWritingGroup(writingGroups);
                }
+               //if user decides to create an individual author
                else if(authorChoice == 2)
                {
+                  //the user is then prompted to enter the information needed to create an individual author
                   Individual_Author ia = createIndividualAuthor(individualAuthors);
+                  //once the individual author has been created and at least 1 ad hoc team exists, then we prompt the user
+                  //to decide if they'd like to add that author to an ad hoc team
                   if(ad_hoc_teams.size() > 0)
                   {
                      System.out.println("Would you like to add this author to an Ad Hoc Team? Enter yes/no");
                      String answer = getString();
-                     if(answer.equalsIgnoreCase("yes"))
+                     //make sure we get the proper input from the user
+                     while(!answer.equalsIgnoreCase("yes") && !answer.equalsIgnoreCase("no"))
                      {
+                        System.out.println("Would you like to add this author to an Ad Hoc Team? Enter yes/no");
+                        answer = getString();
+                     }
+                     //if the user does want to add to an ad hoc team then they are prompted to select the team
+                     //to add the individual author to
+                     if(answer.equalsIgnoreCase("yes")){
                         System.out.println("Please choose which ad hoc team you would like to add the author to");
                         //display all ad hoc teams
                         for (int i = 0; i < ad_hoc_teams.size(); i++)
@@ -193,23 +204,41 @@ public class JPABooks {
                            System.out.println("\n\n" + (i + 1) + ". " + ad_hoc_teams.get(i));
                         }
                         int team = getInt();
+                        //make sure we get the proper input from the user
+                        while(team > ad_hoc_teams.size() || team < 1){
+                           System.out.println("Please choose which ad hoc team you would like to add the author to");
+                           //display all ad hoc teams
+                           for (int i = 0; i < ad_hoc_teams.size(); i++)
+                           {
+                              System.out.println("\n\n" + (i + 1) + ". " + ad_hoc_teams.get(i));
+                           }
+                           team = getInt();
+                        }
+                        //add the individual author to the ad hoc team that the user selected and notify them
                         ad_hoc_teams.get(team - 1).addIndividual_Authors(ia);
                         System.out.println("The individual author has been added to the ad hoc team");
                      }
 
                   }
                }
+               //if the user decides to create an ad hoc team
                else if(authorChoice == 3)
                {
+                  //the user is then prompted to enter the information needed to create a new ad hoc team
                   Ad_Hoc_Team aht = createAdHocTeam(ad_hoc_teams);
                }
             }
+            //if the user wants to create a publisher
             else if(createChoice == 2)
             {
+               //the user is then prompted to enter the information to create a new publisher
                Publishers pub = createPublishers(publishers);
             }
+            //if the user decides to create a book
             else if(createChoice == 3)
             {
+               //since publishers are needed to create a book, we make sure there are publishers in the database
+               //and if there are no publishers, then we will notify the user to create a publisher
                if(publishers.size() == 0)
                {
                   System.out.println("No publishers have been created, please create a " +
@@ -217,22 +246,41 @@ public class JPABooks {
                }
                else
                {
+                  //prompt the user to select an existing publisher
                   System.out.print("Please choose the publisher of the book");
                   for (int j = 0; j < publishers.size(); j++)
                   {
                      System.out.println("\n" + (j + 1) + ". " + publishers.get(j));
                   }
                   int whichPublisher = getInt();
+                  while(whichPublisher > publishers.size() || whichPublisher < 1){
+                     System.out.print("Please choose the publisher of the book");
+                     for (int j = 0; j < publishers.size(); j++)
+                     {
+                        System.out.println("\n" + (j + 1) + ". " + publishers.get(j));
+                     }
+                     whichPublisher = getInt();
+                  }
                   Publishers tempPub = publishers.get(whichPublisher - 1);
+                  //prompt the user to select the authoring entity they'd like to be attached to the book
                   System.out.println("\nPlease choose which authoring entity you want to use: \n" +
                           "1. Writing Group \n2. Individual Author \n3. Ad Hoc Team");
                   int author = getInt();
+                  while(author > 3 || author < 1){
+                     System.out.println("\nPlease choose which authoring entity you want to use: \n" +
+                             "1. Writing Group \n2. Individual Author \n3. Ad Hoc Team");
+                     author = getInt();
+                  }
+                  //if the user selects a writing group to be attached to the book
                   if(author == 1)
                   {
+                     //check to see if there are existing writing groups, if not then the user will be
+                     //notified that one will need to be created first
                      if(writingGroups.size() == 0)
                      {
                         System.out.println("There are no Writing Groups created. Please create one first.");
                      }
+                     //other wise the user will be prompted to select an existing writing group
                      else
                      {
                         System.out.println("Please choose which writing group is the author of the book");
@@ -241,17 +289,31 @@ public class JPABooks {
                            System.out.println("\n" + (i + 1) + ". " + writingGroups.get(i));
                         }
                         int group = getInt();
+                        while (group > writingGroups.size() || group < 1){
+                           System.out.println("Please choose which writing group is the author of the book");
+                           for (int i = 0; i < writingGroups.size(); i++)
+                           {
+                              System.out.println("\n" + (i + 1) + ". " + writingGroups.get(i));
+                           }
+                           group = getInt();
+                        }
+                        //the new writing group is formed and added to the database
                         Writing_Group tempGroup = writingGroups.get(group - 1);
                         createBook(books, tempGroup, tempPub);
                      }
 
                   }
+                  //if the user decides to attach an individual author to the book
                   else if(author == 2)
                   {
+                     //check if there are any existing individual authors, if there are none the user will
+                     //be notified to create one first
                      if(individualAuthors.size() == 0)
                      {
                         System.out.println("There are no Individual Authors created. Please create one first.");
                      }
+                     //other wise the user will be prompted to select from the existing individual authors
+                     //to attach to the book
                      else
                      {
                         System.out.println("Please choose which individual author is the author of the book");
@@ -259,17 +321,30 @@ public class JPABooks {
                         {
                            System.out.println("\n" + (i+1) + ". " + individualAuthors.get(i));
                         }
-                        int group = getInt();
-                        Individual_Author tempIndividual = individualAuthors.get(group - 1);
+                        int auth = getInt();
+                        while(auth > individualAuthors.size() || auth < 1){
+                           System.out.println("Please choose which individual author is the author of the book");
+                           for (int i = 0; i < individualAuthors.size(); i++)
+                           {
+                              System.out.println("\n" + (i+1) + ". " + individualAuthors.get(i));
+                           }
+                           auth = getInt();
+                        }
+                        //the selected individual author is added to the book and the book is added to the database
+                        Individual_Author tempIndividual = individualAuthors.get(auth - 1);
                         createBook(books, tempIndividual, tempPub);
                      }
                   }
+                  //if the user decides to attach an ad hoc team to the book
                   else if(author == 3)
                   {
+                     //make sure there are existing ad hoc teams, if not then the user is notified that
+                     //they must create one first
                      if(ad_hoc_teams.size() == 0)
                      {
                         System.out.println("There are no Ad Hoc Teams created. Please create one first.");
                      }
+                     //other wise the user is prompted to select an ad hoc team to attach to the book
                      else
                      {
                         System.out.println("Please choose which ad hoc team is the author of the book");
@@ -277,61 +352,39 @@ public class JPABooks {
                         {
                            System.out.println("\n" + (i + 1) + ". " + ad_hoc_teams.get(i));
                         }
-                        int group = getInt();
-                        Ad_Hoc_Team tempAdHoc = ad_hoc_teams.get(group - 1);
+                        int adTeam = getInt();
+                        while(adTeam > ad_hoc_teams.size() || adTeam < 1){
+                           System.out.println("Please choose which ad hoc team is the author of the book");
+                           for (int i = 0; i < ad_hoc_teams.size(); i++)
+                           {
+                              System.out.println("\n" + (i + 1) + ". " + ad_hoc_teams.get(i));
+                           }
+                           adTeam = getInt();
+                        }
+                        //the selected ad hoc team is attached to the book and added to the database
+                        Ad_Hoc_Team tempAdHoc = ad_hoc_teams.get(adTeam - 1);
                         createBook(books, tempAdHoc, tempPub);
                      }
                   }
                }
             }
          }
-
+         //all new information is added to the database tables
+         JPABooks.createEntity(ad_hoc_teams);
+         JPABooks.createEntity(publishers);
+         JPABooks.createEntity(books);
+         JPABooks.createEntity(writingGroups);
+         JPABooks.createEntity(individualAuthors);
+         tx.commit();
+         //the user is now prompted to delete a book or not then they are brought back
+         //to the main menu once they are done deleting books
+         deleteBook(manager);
          //user is brought back to the main menu to start from the beginning again
          mainChoice = mainMenu();
       }
-      JPABooks.createEntity(ad_hoc_teams);
-      JPABooks.createEntity(publishers);
-      JPABooks.createEntity(books);
-      JPABooks.createEntity(writingGroups);
-      JPABooks.createEntity(individualAuthors);
-      tx.commit();
-
-      //prompt user to delete a book
-      boolean delete = false;
-      String title = "";
-      String pub = "";
-      int index = 0;
-      //Map<String, Object> ck = new HashMap<>();
-      while(!delete){
-         System.out.print("\n\nLet's try deleting a book now!!\n\nEnter the title for the book you'd like to delete: ");
-         title = getString();
-         System.out.print("\n\nNow enter the name of of the publisher that published this book: ");
-         pub = getString();
 
 
-         for(int i = 0; i < books.size(); i++){
-            String tempT = books.get(i).getTitle();
-            String tempP = books.get(i).getPublishers().getName();
-            tempT = tempT.toLowerCase();
-            tempP = tempP.toLowerCase();
-            title = title.toLowerCase();
-            pub = pub.toLowerCase();
-            if(tempT == title && tempP == pub){
-               System.out.println("WE FOUND THE BOOK!!" + books.get(i));
-               index = i;
 
-               delete = true;
-            } else if(i == books.size() - 1 && tempT != title && tempP != pub){
-               System.out.println("\n\nSorry, the book you are trying to delete does not exist. Please try again....");
-            }
-         }
-
-      }
-
-      Books b = manager.find(Books.class, books.get(index).getISBN());
-      manager.getTransaction().begin();
-      manager.remove(b);
-      manager.getTransaction().commit();
 
 
       LOGGER.fine("End of Transaction");
@@ -603,5 +656,55 @@ public class JPABooks {
       } //End of the getTeam method
    }
 
+   /**
+    * deleteBook method take in an EntityManager m that corresponds to an existing EntityManager that is manipulating
+    * the current database.
+    * @param m       The EntityManager that is being used to manipulate the database.
+    * @return        NULL
+    * */
+   public static void deleteBook(EntityManager m){
+      //prompt the user to decide if they'd like to delete a book or not
+      int choice = 0;
+      while(choice != 2){
+         System.out.println("\n\n Would you like to delete a book? Please enter a number from the following options: \n1. Yes\n2. No");
+         choice = getInt();
+         while(choice > 2 || choice < 1){
+            System.out.println("\n\nPlease enter a number from the following options: \n1. Yes\n2. No");
+            choice = getInt();
+         }
+         //if they decide to delete a book, then the current books in the database are displayed for the user
+         //to delete
+         if(choice == 1){
+            int choice2 = 0;
+            List<Books> b = m.createQuery("Select a From Books a", Books.class).getResultList();
+            if(b.size() > 0){
+               System.out.println("\n\nPlease select the following book you'd like to delete by entering the number from the following options: ");
+               for(int i = 0; i < b.size(); i++){
+                  System.out.println((i + 1) + ". Title: " + b.get(i).getTitle() + "\t\tPublisher: " + b.get(i).getPublishers().getName() + "\t\tISBN: " + b.get(i).getISBN());
+               }
+               choice2 = getInt();
+               while(choice2 > b.size() || choice2 < 1){
+                  System.out.println("\n\nPlease select the following book you'd like to delete by entering the number from the following options: ");
+                  for(int i = 0; i < b.size(); i++){
+                     System.out.println((i + 1) + ". Title: " + b.get(i).getTitle() + "\t\tPublisher: " + b.get(i).getPublishers().getName() + "\t\tISBN: " + b.get(i).getISBN());
+                     choice2 = getInt();
+                  }
+               }
+               //once the user decides which book to delete, then the database is updated with the correct data
+               choice2 = choice2 - 1;
+               Books tempB = m.find(Books.class, b.get(choice2).getISBN());
+               m.getTransaction().begin();
+               m.remove(tempB);
+               m.getTransaction().commit();
+              //if there are no existing books, the user is notified and exit the menu to delete the book
+            } else {
+               System.out.println("There are no books to delete!!!");
+               choice = 2;
+            }
+
+         }
+
+      }
+   }
 
 } // End of JPABooks class
