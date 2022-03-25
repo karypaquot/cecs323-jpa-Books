@@ -280,7 +280,7 @@ public class JPABooks {
                      {
                         System.out.println("There are no Writing Groups created. Please create one first.");
                      }
-                     //other wise the user will be prompted to select an existing writing group
+                     //otherwise the user will be prompted to select an existing writing group
                      else
                      {
                         System.out.println("Please choose which writing group is the author of the book");
@@ -297,8 +297,9 @@ public class JPABooks {
                            }
                            group = getInt();
                         }
-                        //the new writing group is formed and added to the database
+                        //the selected writing group is assigned to a temporary instance
                         Writing_Group tempGroup = writingGroups.get(group - 1);
+                        //a new book is created with the chosen publisher and authoring entity
                         createBook(books, tempGroup, tempPub);
                      }
 
@@ -330,8 +331,9 @@ public class JPABooks {
                            }
                            auth = getInt();
                         }
-                        //the selected individual author is added to the book and the book is added to the database
+                        //the selected individual author is assigned to a temporary instance
                         Individual_Author tempIndividual = individualAuthors.get(auth - 1);
+                        //a new book is created with the chosen publisher and authoring entity
                         createBook(books, tempIndividual, tempPub);
                      }
                   }
@@ -361,8 +363,9 @@ public class JPABooks {
                            }
                            adTeam = getInt();
                         }
-                        //the selected ad hoc team is attached to the book and added to the database
+                        //the selected ad hoc team is assigned to a temporary instance
                         Ad_Hoc_Team tempAdHoc = ad_hoc_teams.get(adTeam - 1);
+                        //a new book is created with the chosen publisher and authoring entity
                         createBook(books, tempAdHoc, tempPub);
                      }
                   }
@@ -438,35 +441,44 @@ public class JPABooks {
                books.get(whichBook - 1).setAuthoring_Entity(ad_hoc_teams.get(author - 1));
             }
          }
+         //if the user wants to list the primary keys
          else if(mainChoice == 4)
          {
+            //prompt the user to decide what object's primary key they want to list
             System.out.println("Which object would you like to list the primary key of? Please choose one: \n" +
                     "1. Publishers\n2. Books\n3. Writing Groups\n4. Individual Authors\n5. Ad Hoc Teams");
             int key = getInt();
+            //make sure the user chooses a number in range
             while(key > 5 || key < 1)
             {
                System.out.println("Please choose a number in range: \n1. Publishers\n2. Books\n3. Writing Groups\n" +
                        "4. Individual Authors\n5. Ad Hoc Teams");
                key = getInt();
             }
+            //if the user chooses publishers
             if(key == 1)
             {
+               //display the primary key for all publishers in the database
                System.out.println("The primary key of all publishers: ");
                for(int k = 0; k < publishers.size(); k++)
                {
                   System.out.println("\n" + (k+1) +". Name: " + publishers.get(k).getName());
                }
             }
+            //if the user chooses books
             else if(key == 2)
             {
+               //display the primary key for all books in the database
                System.out.println("The primary key of all books: ");
                for(int k = 0; k < books.size(); k++)
                {
                   System.out.println("\n" + (k+1) +". ISBN: " + books.get(k).getISBN() + "\nTitle: " + books.get(k).getTitle());
                }
             }
+            //if the user chooses writing groups
             else if(key == 3)
             {
+               //display the primary key for all writing groups in the database
                System.out.println("The primary key of all writing groups: ");
                for(int k = 0; k < writingGroups.size(); k++)
                {
@@ -474,8 +486,10 @@ public class JPABooks {
                           "Entity: Writing Group");
                }
             }
+            //if the user chooses individual authors
             else if(key == 4)
             {
+               //display the primary key for all individual authors in the database
                System.out.println("The primary key of all individual authors: ");
                for(int k = 0; k < individualAuthors.size(); k++)
                {
@@ -483,8 +497,10 @@ public class JPABooks {
                           "Entity: Individual Author");
                }
             }
+            //if the user chooses ad hoc teams
             else if(key == 5)
             {
+               //display the primary key for all ad hoc teams in the database
                System.out.println("The primary key of all ad hoc teams: ");
                for(int k = 0; k < ad_hoc_teams.size(); k++)
                {
@@ -570,6 +586,11 @@ public class JPABooks {
       return answer;
    }
 
+   /**
+    * displayMenu displays the option for the user to choose which object they would like to display, gets the
+    * users choice in form of an integer, and returns the integer
+    * @return an integer that is the users choice
+    */
    public static int displayMenu(){
       //display menu for user to select from
       System.out.println("\nSelect an option by entering the menu number:\n1. Display all Publishers and their information" +
