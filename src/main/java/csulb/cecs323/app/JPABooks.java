@@ -81,7 +81,7 @@ public class JPABooks {
 
       //prompt user to create/choose authoring entity, create a publisher, or create a book
       int mainChoice = mainMenu();
-      while (mainChoice < 4) {
+      while (mainChoice < 5) {
 
          //initiate information to be updated to the database
          tx.begin();
@@ -438,6 +438,61 @@ public class JPABooks {
                books.get(whichBook - 1).setAuthoring_Entity(ad_hoc_teams.get(author - 1));
             }
          }
+         else if(mainChoice == 4)
+         {
+            System.out.println("Which object would you like to list the primary key of? Please choose one: \n" +
+                    "1. Publishers\n2. Books\n3. Writing Groups\n4. Individual Authors\n5. Ad Hoc Teams");
+            int key = getInt();
+            while(key > 5 || key < 1)
+            {
+               System.out.println("Please choose a number in range: \n1. Publishers\n2. Books\n3. Writing Groups\n" +
+                       "4. Individual Authors\n5. Ad Hoc Teams");
+               key = getInt();
+            }
+            if(key == 1)
+            {
+               System.out.println("The primary key of all publishers: ");
+               for(int k = 0; k < publishers.size(); k++)
+               {
+                  System.out.println("\n" + (k+1) +". Name: " + publishers.get(k).getName());
+               }
+            }
+            else if(key == 2)
+            {
+               System.out.println("The primary key of all books: ");
+               for(int k = 0; k < books.size(); k++)
+               {
+                  System.out.println("\n" + (k+1) +". ISBN: " + books.get(k).getISBN() + "\nTitle: " + books.get(k).getTitle());
+               }
+            }
+            else if(key == 3)
+            {
+               System.out.println("The primary key of all writing groups: ");
+               for(int k = 0; k < writingGroups.size(); k++)
+               {
+                  System.out.println("\n" + (k+1) +". Email: " + writingGroups.get(k).getEmail() + "\nAuthoring " +
+                          "Entity: Writing Group");
+               }
+            }
+            else if(key == 4)
+            {
+               System.out.println("The primary key of all individual authors: ");
+               for(int k = 0; k < individualAuthors.size(); k++)
+               {
+                  System.out.println("\n" + (k+1) +". Email: " + individualAuthors.get(k).getEmail() + "\nAuthoring " +
+                          "Entity: Individual Author");
+               }
+            }
+            else if(key == 5)
+            {
+               System.out.println("The primary key of all ad hoc teams: ");
+               for(int k = 0; k < ad_hoc_teams.size(); k++)
+               {
+                  System.out.println("\n" + (k+1) +". Email: " + ad_hoc_teams.get(k).getEmail() + "\nAuthoring " +
+                          "Entity: Ad Hoc Team");
+               }
+            }
+         }
 
          //all new information is added to the database tables
          JPABooks.createEntity(ad_hoc_teams);
@@ -559,11 +614,13 @@ public class JPABooks {
     */
    public static int mainMenu()
    {
-      System.out.println("\nMAIN MENU:\nPlease select an option by entering the menu number:\n1. Display an object\n2. Create an object\n3. Update a book\n4. Exit");
+      System.out.println("\nMAIN MENU:\nPlease select an option by entering the menu number:\n1. Display an object\n2. Create an object\n" +
+              "3. Update a book\n4. List primary keys\n5. Exit");
       int choice = getInt();
-      while(choice > 4 || choice < 1)
+      while(choice > 5 || choice < 1)
       {
-         System.out.println("Please select an option by entering the menu number:\n1. Display an object\n2. Create an object\n3. Update a book\n4. Exit");
+         System.out.println("Please select an option by entering the menu number:\n1. Display an object\n2. Create an object\n" +
+                 "3. Update a book\n4. List primary keys\n5. Exit");
          choice = getInt();
       }
       return choice;
